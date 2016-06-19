@@ -3,7 +3,6 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../fast-web">
-      <sourceFolder url="file://$MODULE_DIR$/../../../fast-web/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../fast-web/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../fast-web/build" />
     </content>

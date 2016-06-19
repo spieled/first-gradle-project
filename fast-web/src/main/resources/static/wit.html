@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no,width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>您已进入智慧工地WIFI</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        .main{
+            color: white;
+            background: url('images/wel_bg.png') center center no-repeat;
+            background-size: cover;
+        }
+        .activity-container{
+            width: 100%;
+            padding: 20px 0;
+            background: #ffffff;
+        }
+        .activity-container .circle{
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: #012d90;
+            text-align: center;
+            margin: 0 auto;
+            position: relative;
+        }
+        .activity-container .circle_inner{
+            position: absolute;
+            top: 38%;
+            left: 16%;
+            font-size: 1.5rem;
+        }
+
+        .list-group .item{
+            float: left;
+            width: 50%;
+            border:1px solid #ffffff;
+            border-left:0;
+            text-align: center;
+            box-sizing:border-box;
+            -moz-box-sizing:border-box; /* Firefox */
+            -webkit-box-sizing:border-box; /* Safari */
+            padding: 20px 0;
+            margin-bottom: -1px;
+
+        }
+        .list-group .item:nth-child(2n){
+            border-right: 0;
+        }
+        .list-group .item-img{
+            width:100%;
+            height:60px;
+        }
+        .list-group .item-img .img{
+            width: 54px;
+        }
+        .list-group .item-img .-camera{
+            width: 51px;
+            margin-top: 5px;
+        }
+        .list-group .item-txt{
+            font-size: 1.3rem;
+        }
+        .footer{
+            margin: 0px 20px 0 0;
+            position: relative;
+            top: 30px;
+            text-align: right;
+        }
+        .footer img{
+            height: 14px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="dock-fill main">
+        <div class="topBar">
+            您已进入智慧工地WIFI
+        </div>
+
+        <div class="activity-container">
+            <div class="circle color-info">
+                <span class="circle_inner">活动签到</span>
+            </div>
+        </div>
+
+        <ul class="list-group">
+            <li class="item">
+                <div class="item-img">
+                    <img class="img" src="images/wit_building.png" alt="">
+                </div>
+                <p class="item-txt">项目展示</p>
+            </li>
+            <li class="item">
+                <div class="item-img">
+                    <img class="img -camera" src="images/wit_safty.png" alt="">
+                </div>
+                <p class="item-txt">质量安全知识库</p>
+            </li>
+            <li class="item">
+                <div class="item-img">
+                    <img class="img" src="images/wit_house.png" alt="">
+                </div>
+                <p class="item-txt">项目管理工具</p>
+            </li>
+            <li class="item">
+                <div class="item-img">
+                    <img class="img -camera" src="images/wit_wifi.png" alt="">
+                </div>
+                <p class="item-txt">我要上网</p>
+            </li>
+        </ul>
+
+        <div class="footer">
+            <span>技术支持</span>
+            <img src="images/wel_company.png" alt="民工加网络科技有限公司">
+        </div>
+    </div>
+
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/swipe.js"></script>
+</body>
+
+</html>
