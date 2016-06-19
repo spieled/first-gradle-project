@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Capture Photo</title>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
+
+</head>
+<body>
+<input type="file" value="上傳照片" id="uploadInput" name="file" accept="image/*" multiple capture="camera"
+       onchange="update(this)"/><!-- -->
+<input type="button">
+<br>
+<script type="text/javascript" src="jquery-1.12.4.js"></script>
+<script type="text/javascript" src="jquery.ui.widget.js"></script>
+<script type="text/javascript" src="jquery.fileupload.js"></script>
+
+<script>
+    $("#uploadInput").fileupload({
+        //url: "http://121.43.127.210:8100/managerCampus/school/uploadImgByFile.do",//文件上传地址，也可以直接写在input的data-url属性内
+        url: "http://192.168.2.123:8080/upload",//文件上传地址，也可以直接写在input的data-url属性内
+        type: 'json',
+        formData: {},//如果需要额外添加参数可以在这里添加
+        done: function (e, result) {
+            //done方法就是上传完毕的回调函数，其他回调函数可以自行查看api
+            //注意result要和jquery的ajax的data参数区分，这个对象包含了整个请求信息
+            //返回的数据在result.result中，假设我们服务器返回了一个json对象
+//                console.log(JSON.stringify(result.result));
+        }
+    });
+
+    function update(file) {
+        console.log(file.files[0]);
+
+
+//        var formData = new FormData();
+//        formData.append("file", file.files[0]);
+//
+//        console.log(formData);
+//        $.ajax({
+//            url:'http://localhost:63342/upload',
+
+//            type: 'POST',
+//            data: JSON.stringify(formData),
+//            dataType: 'json',
+//            headers: {
+//                'Content-Type': 'multipart/form-data'
+//            },
+//            success: function (data) {
+//                console.log(data);
+//            }
+//        })
+
+
+    }
+</script>
+</body>
+</html>

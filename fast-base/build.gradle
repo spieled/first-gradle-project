@@ -1,0 +1,5 @@
+// [baseName]-[appendix]-[version]-[classifier].[extension]
+
+jar {
+    baseName = 'fast-base'
+}
