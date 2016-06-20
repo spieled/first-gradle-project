@@ -6,13 +6,17 @@
 
 </head>
 <body>
-<input type="file" value="上傳照片" id="uploadInput" name="file" accept="image/*" multiple capture="camera"
-       onchange="update(this)"/><!-- -->
+<input type="file" value="上傳照片" id="uploadInput" name="file" accept="image/*" multiple capture="camera"/><!-- -->
 <input type="button">
 <br>
 <script type="text/javascript" src="jquery-1.12.4.js"></script>
 <script type="text/javascript" src="jquery.ui.widget.js"></script>
 <script type="text/javascript" src="jquery.fileupload.js"></script>
+<!--<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js" type="text/javascript"></script>-->
+<script src="compress/localResizeIMG.js" type="text/javascript"></script>
+
+<!-- mobileBUGFix.js 兼容修复移动设备 -->
+<script src="compress/patch/mobileBUGFix.mini.js" type="text/javascript"></script>
 
 <script>
     $("#uploadInput").fileupload({
@@ -20,38 +24,86 @@
         url: "http://192.168.2.123:8080/upload",//文件上传地址，也可以直接写在input的data-url属性内
         type: 'json',
         formData: {},//如果需要额外添加参数可以在这里添加
+        add: function (e, data) {
+            var originalFile = data.originalFiles[0];
+
+            console.log('originalFile');
+            console.log(originalFile);
+
+            data.context = $('<button/>').text('Upload')
+                    .appendTo(document.body)
+                    .click(function () {
+
+                        $(this).replaceWith($('<p/>').text('Uploading...'));
+
+                        $.ajax({
+                            url: 'http://192.168.2.123:8080/upload',
+                            data: {file: compressedFile.clearBase64, name:originalFile.name},
+                            dataType: 'json',
+                            type: 'post',
+
+                            success: function(response) {
+                                console.log(response);
+                            }
+                        });
+
+                        /*headers: {
+                            'Content-Type': 'multipart/form-data'
+                        },*/
+                        /*$(originalFile).localResizeIMG({
+                            width: 200,
+                            quality: 0.8,
+                            success: function (result) {
+                                console.log(result);
+
+                                var img = new Image();
+                                img.src = result.base64;
+
+                                console.log(img);
+                                $('body').append(img);
+                                data.originalFiles[0] = img;
+                                        console.log(result);
+                                data.submit();
+                            }
+                        });*/
+
+                       /* var f = new FileReader();
+
+                        data.originalFiles[0] = compressedFile;
+                        data.files[0] = compressedFile;
+                        console.log('compressedFile');
+                        console.log(compressedFile);
+                        console.log('data');
+                        console.log(data);
+                        data.submit();*/
+
+
+                    });
+        },
         done: function (e, result) {
             //done方法就是上传完毕的回调函数，其他回调函数可以自行查看api
             //注意result要和jquery的ajax的data参数区分，这个对象包含了整个请求信息
             //返回的数据在result.result中，假设我们服务器返回了一个json对象
 //                console.log(JSON.stringify(result.result));
+            console.log('result: ' + result);
         }
     });
 
-    function update(file) {
-        console.log(file.files[0]);
+    var compressedFile;
+    // TODO 预览原始图，上传压缩图
+    $('#uploadInput').localResizeIMG({
+        width: 200,
+        quality: 0.8,
+        success: function (result) {
+            var img = new Image();
+            img.src = result.base64;
+            compressedFile = result;
 
+            $('body').append(img);
+            console.log(result);
+        }
+    });
 
-//        var formData = new FormData();
-//        formData.append("file", file.files[0]);
-//
-//        console.log(formData);
-//        $.ajax({
-//            url:'http://localhost:63342/upload',
-
-//            type: 'POST',
-//            data: JSON.stringify(formData),
-//            dataType: 'json',
-//            headers: {
-//                'Content-Type': 'multipart/form-data'
-//            },
-//            success: function (data) {
-//                console.log(data);
-//            }
-//        })
-
-
-    }
 </script>
 </body>
 </html>
