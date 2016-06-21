@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by yanqu on 2016/6/16.
  */
 @SpringBootApplication
-public class Application implements EmbeddedServletContainerCustomizer {
+public class Application {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(Application.class, args);
     }
@@ -26,11 +26,9 @@ public class Application implements EmbeddedServletContainerCustomizer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/upload").allowedOrigins("*");
+                registry.addMapping("/sign").allowedOrigins("*");
             }
         };
     }
 
-    @Override
-    public void customize(ConfigurableEmbeddedServletContainer container) {
-    }
 }

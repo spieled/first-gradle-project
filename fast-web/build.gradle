@@ -6,7 +6,19 @@ buildscript {
         classpath('org.springframework.boot:spring-boot-gradle-plugin:1.3.5.RELEASE')
     }
 }
+group 'com.mgj'
+version '0.0.1'
+apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+// 处理编译时的中文编码问题：“编码GBK的不可映射字符”
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 
+repositories {
+    mavenCentral()
+}
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
@@ -25,6 +37,7 @@ dependencies {
     compile group: 'com.sun.jersey', name: 'jersey-bundle', version: '1.19.1'
     // https://mvnrepository.com/artifact/com.alibaba/fastjson
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.12'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
     // https://mvnrepository.com/artifact/net.sf.json-lib/json-lib
     // compile group: 'net.sf.json-lib', name: 'json-lib', version: '2.4'
     // https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl
@@ -36,8 +49,10 @@ dependencies {
     // tag::tests[]
     testCompile("org.springframework.boot:spring-boot-starter-test")
     // end::tests[]
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
+/*
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
-}
+}*/

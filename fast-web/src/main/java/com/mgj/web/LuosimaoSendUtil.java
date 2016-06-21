@@ -25,10 +25,10 @@ public class LuosimaoSendUtil {
 	private static final String PASSWORD = "key-b69a84d17966d446faa936f9cc387ddd";// 密码
 	private static final boolean isSend = true;
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		boolean send = send("18224421156", "验证码125632", "快支付");
 		System.err.println(send);
-	}
+	}*/
 
 	/**
 	 * 给单个用户发送消息
