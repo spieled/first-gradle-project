@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by yanqu on 2016/6/16.
  */
 @SpringBootApplication
-public class Application {
+public class Application implements EmbeddedServletContainerCustomizer {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(Application.class, args);
     }
@@ -31,4 +31,9 @@ public class Application {
         };
     }
 
+    @Override
+    public void customize(ConfigurableEmbeddedServletContainer container) {
+        container.setPort(58082);
+
+    }
 }

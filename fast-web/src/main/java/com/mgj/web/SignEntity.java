@@ -40,4 +40,14 @@ public class SignEntity {
     public void setTxtaddress(String txtaddress) {
         this.txtaddress = txtaddress;
     }
+
+    @Override
+    public String toString() {
+        return "SignEntity{" +
+                "txtmobile='" + txtmobile + '\'' +
+                ", txtuser_name='" + txtuser_name + '\'' +
+                ", txtindustry='" + txtindustry + '\'' +
+                ", txtaddress='" + txtaddress + '\'' +
+                '}';
+    }
 }
