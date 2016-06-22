@@ -81,7 +81,7 @@ public class HelloController {
         params.put("txtmobile", signEntity.getTxtmobile());
         params.put("txtuser_name", signEntity.getTxtuser_name());
         params.put("txtindustry", signEntity.getTxtindustry());
-        params.put("txtaddress", signEntity.getTxtaddress());
+        params.put("txtcompany", signEntity.getTxtcompany());
 
         try {
             Client client = Client.create();
@@ -90,7 +90,7 @@ public class HelloController {
             formData.add("txtmobile", signEntity.getTxtmobile());
             formData.add("txtuser_name", signEntity.getTxtuser_name());
             formData.add("txtindustry", signEntity.getTxtindustry());
-            formData.add("txtaddress", signEntity.getTxtaddress());
+            formData.add("txtcompany", signEntity.getTxtcompany());
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class,
                     formData);
             String response = clientResponse.getEntity(String.class);

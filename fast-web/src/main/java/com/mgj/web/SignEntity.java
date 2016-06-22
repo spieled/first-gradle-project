@@ -7,7 +7,7 @@ public class SignEntity {
     private String txtmobile = "";
     private String txtuser_name = "";
     private String txtindustry = "";
-    private String txtaddress = "";
+    private String txtcompany = "";
 
     public String getTxtmobile() {
         return txtmobile;
@@ -33,12 +33,12 @@ public class SignEntity {
         this.txtindustry = txtindustry;
     }
 
-    public String getTxtaddress() {
-        return txtaddress;
+    public String getTxtcompany() {
+        return txtcompany;
     }
 
-    public void setTxtaddress(String txtaddress) {
-        this.txtaddress = txtaddress;
+    public void setTxtcompany(String txtcompany) {
+        this.txtcompany = txtcompany;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class SignEntity {
                 "txtmobile='" + txtmobile + '\'' +
                 ", txtuser_name='" + txtuser_name + '\'' +
                 ", txtindustry='" + txtindustry + '\'' +
-                ", txtaddress='" + txtaddress + '\'' +
+                ", txtcompany='" + txtcompany + '\'' +
                 '}';
     }
 }
