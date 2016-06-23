@@ -16,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,7 +78,7 @@ public class HelloController {
     public Result sign(HttpServletRequest request, SignEntity signEntity) throws IOException {
 
 
-        logger.info("电子签到：" + signEntity);
+        logger.info(getIpAddr(request) + ",电子签到：" + signEntity);
         Map<String, String> params = new HashMap<>();
         params.put("txtmobile", signEntity.getTxtmobile());
         params.put("txtuser_name", signEntity.getTxtuser_name());
@@ -123,7 +125,7 @@ public class HelloController {
         String prefix = new SimpleDateFormat("yyyyMMddHHssmm").format(new Date());
         String filename = prefix + "_" + generatedMobile + originalFilename.substring(index, originalFilename.length());
 
-        logger.info("名片签到，收到请求，name:" + originalFilename + ",base64:" + base64 + ",filename:" + filename);
+        logger.info(getIpAddr(request) + ",名片签到，收到请求，name:" + originalFilename + ",base64:" + base64.length() + ",filename:" + filename);
 
         File f = new File(filename);
         org.apache.commons.io.FileUtils.writeByteArrayToFile(f, bytes);
@@ -179,6 +181,44 @@ public class HelloController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @Title: getIpAddr
+     * @author kaka  www.zuidaima.com
+     * @Description: 获取客户端IP地址
+     * @param @return
+     * @return String
+     * @throws
+     */
+    public static String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+            if(ip.equals("127.0.0.1")){
+                //根据网卡取本机配置的IP
+                InetAddress inet=null;
+                try {
+                    inet = InetAddress.getLocalHost();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+                ip= inet.getHostAddress();
+            }
+        }
+        // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
+        if(ip != null && ip.length() > 15){
+            if(ip.indexOf(",")>0){
+                ip = ip.substring(0,ip.indexOf(","));
+            }
+        }
+        return ip;
     }
 
 }
