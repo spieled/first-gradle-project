@@ -8,6 +8,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-base/fast-base.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-base/fast-base.iml" group="fast-base" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-base/fast-base_main.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-base/fast-base_main.iml" group="fast-base" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-base/fast-base_test.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-base/fast-base_test.iml" group="fast-base" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-core/fast-core.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-core/fast-core.iml" group="fast-core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-core/fast-core_main.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-core/fast-core_main.iml" group="fast-core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-core/fast-core_test.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-core/fast-core_test.iml" group="fast-core" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-util/fast-util.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-util/fast-util.iml" group="fast-util" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-util/fast-util_main.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-util/fast-util_main.iml" group="fast-util" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/fast-util/fast-util_test.iml" filepath="$PROJECT_DIR$/.idea/modules/fast-util/fast-util_test.iml" group="fast-util" />

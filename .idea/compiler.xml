@@ -30,6 +30,8 @@
       <module name="fast-api_test" target="1.8" />
       <module name="fast-base_main" target="1.8" />
       <module name="fast-base_test" target="1.8" />
+      <module name="fast-core_main" target="1.8" />
+      <module name="fast-core_test" target="1.8" />
       <module name="fast-util_main" target="1.8" />
       <module name="fast-util_test" target="1.8" />
       <module name="fast-web" target="1.8" />
