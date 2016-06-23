@@ -70,7 +70,7 @@ public class HelloController {
         return "failed";
     }
 
-    private static final String SIGN_URL = "http://www.kuaiyonggong.com/toolshtml/user_sign.ashx";
+    private static final String SIGN_URL = "http://101.200.191.119/toolshtml/user_sign.ashx";
     private static final String SIGN_CARD_URL = "http://www.kuaiyonggong.com/toolshtml/submit_ajax.ashx?action=photo_user_sign";
 
     @CrossOrigin(origins = "*")
