@@ -5,6 +5,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
+import net.bull.javamelody.MonitoredWithSpring;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by yanqu on 2016/6/16.
  */
 @RestController
+@MonitoredWithSpring
 public class HelloController {
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HelloController.class);
 
