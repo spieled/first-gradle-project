@@ -2,7 +2,7 @@
 *.jar
 *.war
 *.ear
-
+rebel.xml
 *.class
 *.bak
 *.tmp
