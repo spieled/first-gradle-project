@@ -1,8 +1,12 @@
 jar {
     baseName = 'fast-util'
 }
+apply plugin: 'jacoco'
+
 dependencies {
     compile project(":fast-base")
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0-b01'
     // http://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 
