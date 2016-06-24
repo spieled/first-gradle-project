@@ -35,10 +35,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HelloController {
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HelloController.class);
 
-    @RequestMapping("hello")
+    /*@RequestMapping("hello")
     public String hello() {
         return "Hello Baby!";
-    }
+    }*/
 
     private Map<String, String> map = new ConcurrentHashMap<>();
 
