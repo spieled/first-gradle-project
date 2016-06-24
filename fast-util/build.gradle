@@ -10,4 +10,7 @@ dependencies {
     // http://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    compile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
+
 }
