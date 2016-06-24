@@ -1,0 +1,170 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, menu, nav, section, summary,
+time, mark, audio, video{margin:0;padding:0;font-family: "Microsoft YaHei";font-size:14px;}
+a {margin:0;padding:0;border:0;vertical-align:baseline;background:transparent;}
+a:hover{text-decoration: none;}
+img{border:0;}
+nav ul {list-style:none;}
+.content h1.blue{color:#012d90;font-weight:bold;}
+body{background:url("../images/bodybgs_06.png") repeat-y;}
+/*welcome*/
+/*#welcomeBg{position:absolute; z-index:-1;}*/
+#welcomeBg{position:absolute;}
+#welcomeBg .imgBg{width:100%;height:100%;}
+.welcomeBtn{/*position:absolute;z-index:2;top:86%;left:26%;color:#e2f0fc;padding:5px 10px;border:1px solid #e2f0fc;border-radius:6px;vertical-align: middle;width:50%;text-align: center;*/}
+.welcomeBtn:hover{color:#fff;}
+.leftNorm{background:url("../images/leftNorm_04.png");width:32px;height:21px;display:inline-block;margin-right:15px;vertical-align: middle;}
+
+/*index*/
+.content{position: absolute;top:0;width:100%;padding:0;}
+.content h1{width:100%;height:70px;text-align: center;line-height: 70px;font-size: 18px;color:#fff;}
+.activeSign{text-align: center;height:160px;padding:10px 0;marign:auto;}
+.activeSign a{background: url("../images/signBg_all.png") no-repeat;width:116px;height:147px;display:inline-block;line-height: 70px;color:#fff;font-size: 18px;}
+.activeSign a:hover{color:#ffaf47;}
+.signBtn{margin:0 auto;}
+.signBtn button{background:url("../images/signIndexBtn_03_140.png") no-repeat;width:140px;height:38px;border:none;margin-top:10px;}
+.signTab{width:100%;}
+.signTab tr{}
+.signTab tr td{text-align:center;padding:25px 15px;border-top:1px solid #fff;border-bottom:1px solid #fff;width:50%;}
+.signTab tr td.br{border-right:1px solid #fff;}
+.signTab tr td a{display:inline-block;}
+.signTab tr td a:hover span{color:#ffaf47;font-size:14px;}
+.signTab tr td a img{width:70px;}
+.signTab tr td a span{display:block;color:#fff;padding:10px;margin-top:8px;font-size:16px;}
+
+.footerBg{text-align: center;padding:15% 3px;}
+.footerBg .signBtn{background: url("../images/signBtn_07.png") repeat-x;border:1px solid #fff;padding:3px 10px;margin-right: 20px;color: #fff;}
+.footerBg img{width:240px;}
+
+
+/*massSafe*/
+.content h1.safeTitle{text-align: left;background: url("../images/massTitleBg_02.jpg") repeat-x;}
+.safeTitle img{margin-left:4%;margin-right:8px;}
+.safeTitle span{font-size:18px;}
+
+.massVideo{padding:8px 0;border-bottom:1px solid #c0c0c0;}
+.manual{padding:10px 0;}
+.manual label{ padding: 8px;}
+.manual table{}
+.manual table tr{}
+.manual table tr td{height:50%;}
+.manual table tr td img{width:100%;}
+
+.panel{padding:8px;}
+.panel-primary{border-color: #027ce7;}
+.panel-primary > .panel-heading{background:url("../images/projectShowTitle_03.png") repeat-x; border-color: #0153cf;}
+.panel .panel-heading{border-radius: 6px;padding:10px;}
+.panel-heading .panel-title{}
+.panel-heading .panel-title strong{margin-left:20px;}
+
+#imgDetail a{display:inline-block;border:2px solid #ccc;margin:8px;}
+
+
+.massBtn{}
+.massBtn li{width:100%;list-style: none;height:45px;background:url("../images/projectShowTitle_03.png") repeat-x;margin-top:20px;border-radius: 4px;}
+.massBtn li a{font-size:18px;color:#fff;line-height: 45px;padding:0 8px;}
+
+/*JN*/
+.jnShowBtn div{margin-top:8px;}
+.jnShowBtn button{width:100%;text-align: left;margin-top:10px;}
+.jnShowBtn .btn + .btn{margin-left:0;}
+.jnShowBtn button i{margin-right:8px;}
+.jnShowBtn .imgCon .bigImg{margin:5px 0;display: inline-block;}
+.jnShowBtn .imgCon img{border:1px solid #ccc;}
+.content .nav-tabs > li.active > a,.content .nav-tabs > li.active > a:hover,.content .nav-tabs > li.active > a:focus{background:url("../images/projectShowTitle_03.png") repeat-x;border-radius: 4px;color:#fff;}
+
+/*display*/
+.showUl{marign-top:20px;}
+.showUl li{margin:8px;border:2px solid #ccc;}
+
+.jnCon{margin-top:20px;padding:8px;}
+.jnCon h1{font-size:24px;line-height:35px;text-align: center;color:#333;}
+.jnCon p{font-size:16px;line-height:30px;color:#333;}
+.jnCon p img{width:100%;}
+.sbs h1{line-height:70px;}
+.jnxx h1{font-size:18px;text-align: left;line-height: 35px;}
+.jnxx h2{font-size:18px;}
+.listCon{padding:12px;color:#333;}
+.listCon h1,.listCon p{color:#333;}
+.listCon p span{padding-left:20px;display:block;line-height:35px;}
+
+/*sign-success*/
+.smile{position: absolute;  z-index: 2;  display: inline-block;  height: 80%;  width: 80%;  top:10%;left:10%;background: #fff;}
+.smileCon{margin:20% auto;text-align:center;height:65%;padding:30px;}
+.smileCon span{display:block;margin-top:10px;color:#0aaff0;font-weight: bold;}
+.sucBtn{position:absolute;bottom:0;width:100%;height:10%;background:url("../images/massTitleBg_02.jpg") repeat-x;line-height:40px;text-align: center;}
+.sucBtn a{color:#fff;}
+span.bottom{position: absolute;left:26%;bottom:15%;font-weight:bold;}
+
+.navTitle.nav.nav-tabs > li > a{padding:8px;}
+
+/*projectShow*/
+.panel2 .panel-body{padding-top:0;}
+.panel2 .panel-body a{background: url("../images/projectShowTitle_03.png") repeat-x;display:block;height:45px;width:100%;line-height:45px;text-align: center;margin-bottom:10px;font-size:18px;color:#fff;}
+.btn-primary{background:url("../images/projectShowTitle_03.png") repeat-x;border-radius: 4px;margin-top:20px;}
+
+.jnLogo{background: url("../images/jnLogo_03_120.png") no-repeat;display:inline-block;width:172px;height: 120px;margin:10% auto;}
+
+@media screen and (min-width: 320px) {
+    body{background:url("../images/bodybgs_06_320.png") repeat-y;}
+    /*.activeSign{height:120px;}
+    .activeSign a{background: url("images/sign_all_90.png") no-repeat;width:74px;height:90px;}*/
+    .signTab tr td{padding:10px 10px 3px;}
+    .signTab tr td a img{width:30px;}
+    .signTab tr td a span{margin-top:6px;padding:6px;}
+    .signBtn button{background:url("../images/signIndexBtn_03_120.png") no-repeat;width:120px;height:32px;}
+    .footerBg{padding:8% 3px 0;}
+    .jnLogo{background: url("../images/jnLogo_03_100.png") no-repeat;display:inline-block;width:143px;height: 100px;margin:8% auto 10px;}
+}
+@media screen and (min-height: 568px) {
+    .activeSign{height:180px;}
+    .activeSign a{background: url("../images/signBg_all.png") no-repeat;width:116px;height:147px;}
+    .signTab tr td{padding:10px;}
+    .signTab tr td a img{width:40px;}
+    .signTab tr td a span{margin-top:6px;padding:6px;}
+    .footerBg{padding:10% 3px;}
+}
+@media screen and (min-width:360px) {
+    body{background:url("../images/bodybgs_06_360.png") repeat-y;}
+}
+@media screen and (min-width: 375px) {
+    body{background:url("../images/bodybgs_06_375.png") repeat-y;}
+    .activeSign{height:200px;padding-top:20px;}
+    .signTab tr td{padding:15px 10px 5px 10px;}
+    .signTab tr td a img{width:50px;}
+    .footerBg{padding:10% 3px;}
+    .jnLogo{background: url("../images/jnLogo_03_160.png") no-repeat;display:inline-block;width:229px;height: 160px;margin:10% auto;}
+}
+@media screen and (min-width: 414px) {
+    .activeSign{height:200px;padding-top:20px;}
+    body{background:url("../images/bodybgs_06_414.png") repeat-y;}
+    .signTab tr td{padding:20px 10px;}
+    .signTab tr td a img{width:60px;}
+    .signTab tr td a span{margin-top:10px;}
+    .footerBg{padding:10% 3px;}
+    .jnLogo{background: url("../images/jnLogo_03_160.png") no-repeat;display:inline-block;width:229px;height: 160px;margin:10% auto;}
+}
+@media screen and (min-width: 640px) {
+    body{background:url("../images/bodybgs_06_640.png") repeat-y;}
+}
+
+@media screen and (min-width:720px) {
+    body{background:url("../images/bodybgs_06_720.png") repeat-y;}
+}
+
+@media screen and (min-width:750px) {
+    body{background:url("../images/bodybgs_06_750.png") repeat-y;}
+}
+
+@media screen and (min-width:1080px) {
+    body{background:url("../images/bodybgs_06_1080.png") repeat-y;}
+}

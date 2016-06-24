@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电子签到</title>
+
+    <!-- Bootstrap -->
+    <!--<link href="static/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="static/assets/css/xenon-core.css" rel="stylesheet" />-->
+    <link href="css/base.css" rel="stylesheet" />
+    <link href="css/sign-input.css" rel="stylesheet" />
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div class="container-fluid content">
+    <h1 class="safeTitle">
+        <a href="javascript:history.back();"><img src="images/leftNorm_04.png" /></a>
+        <span>签到</span>
+    </h1>
+    <div class="container-fluid sign-form">
+        <form id="signForm" action="" method="get" onsubmit="return check();">
+            <div class="form-item">
+                <input class="form-item-input" type="tel" name="mobile" placeholder="手机号(账号)必填"/>
+            </div>
+            <div class="form-item">
+                <input class="form-item-input" type="text" name="name" placeholder="姓名（必填）"/>
+            </div>
+            <div class="form-item">
+                <input class="form-item-input" type="text" name="company" placeholder="单位" />
+            </div>
+            <div class="form-item">
+                <input class="form-item-input" type="text" name="role" placeholder="职位" />
+            </div>
+            <div class="sign-submit">
+            <input class="form-item-submit" type="submit" value="提&nbsp;&nbsp;交"/>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" >
+    $('#backImg').on('click', function () {
+        window.location.href = 'wel.html';
+    });
+
+    function check() {
+        var mobile = $('input[name=mobile]').val();
+        var name = $('input[name=name]').val();
+        var role = $('input[name=role]').val();
+        var company = $('input[name=company]').val();
+        if (!mobile) {
+            return false;
+        }
+        if (!name) {
+            return false;
+        }
+        /*名称	定义
+        txtuser_name	用户名，字符串类型
+        txtsex	性别，字符串类型
+        txtmobile	手机号码，字符串类型
+        txtindustry	职位或工种，字符串类型
+        txtBasePic	头像，字符串类型；图片为Base64,事例如下：
+        txtaddress	地址，字符串类型
+        txtlongitude	经度，字符串类型
+        txtlatitude	纬度，字符串类型
+        txtpro_key	项目key，字符串类型
+        txtcom_key	企业key，字符串类型
+        */
+        $.ajax({
+            url: 'http://wifi.mingongjia.com/sign',
+            data: {
+                'txtmobile': mobile,
+                'txtuser_name': name,
+                'txtindustry': role,
+                'txtaddress': company
+            },
+            type: 'post',
+            dataType: 'json',
+            callback: 'success',
+            success: function (result) {
+                console.log(result);
+                /*status	状态，0 失败 ，1 成功 ，2 签到过
+                msg	提醒信息，字符串类型
+                count	签到名次*/
+                var status = result['status'];
+                var msg = result['msg'];
+                var count = result['count'];
+                if (status == 0) {
+                    alert(msg);
+                    return;
+                }
+                window.location.href = 'sign-success.html?count=' + count;
+            }
+        });
+        return false;
+    }
+</script>
+
+</body>
+</html>

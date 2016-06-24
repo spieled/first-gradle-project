@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>签到成功</title>
+
+    <!-- Bootstrap -->
+    <link href="css/base.css" rel="stylesheet" />
+    <link href="css/sign-input.css" rel="stylesheet" />
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+<div id="welcomeBg">
+    <img class="imgBg" src="images/bodyBg.png"/>
+    <div class="smile">
+        <div class="smileCon">
+            <img src="images/smile.png" width="120" height="120" />
+            <span>签到成功!</span>
+            <span class="bottom">您是第 <em id="countSpan"></em> 位签到者</span>
+        </div>
+        <div id="backBtn" class="sucBtn">
+            <a href="javascript:void(0);">返  回</a>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-1.11.0.min.js"></script>
+
+<script>
+    $.extend({
+        getUrlVars: function(){
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        },
+        getUrlVar: function(name){
+            return $.getUrlVars()[name];
+        }
+    });
+
+    $(function() {
+        // Get object of URL parameters
+        var allVars = $.getUrlVars();
+
+        // Getting URL var by its name
+        var param_count = $.getUrlVar('count');
+        $('#countSpan').text(param_count);
+
+        $('#backBtn').on('click', function () {
+            history.back();
+        })
+    });
+</script>
+</body>
+</html>

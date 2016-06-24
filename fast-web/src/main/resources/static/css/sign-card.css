@@ -1,0 +1,40 @@
+.main{
+    color: white;
+    background: url('../images/wel_bg.png') center center no-repeat;
+    background-size: cover;
+}
+.upload-label {
+    background-color: white;
+    z-index: 5555555;
+    position: relative;
+    text-align: center;
+    padding:10px;
+}
+.upload-label label {
+    display: inline-block;
+}
+.btn-blue-small {
+    background-color: #5cbade;
+    border: 0;
+    font-size: 1rem;
+    color: white;
+    font-family: "Microsoft YaHei";
+    padding: 0 10px;
+    margin: 5px 0;
+    height: 34px;
+    line-height: 34px;
+}
+.sign-title {
+    background: url("../images/topBar_bg.png") repeat-x;
+    text-align: left;
+    color: white;
+    height: 4em;
+    line-height: 4em;
+    width: 100%;
+}
+.sign-title img {
+    margin-left: 10%;
+    float: left;
+    vertical-align: middle;
+    margin-top: 1em;
+}
