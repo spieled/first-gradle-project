@@ -6,6 +6,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import net.bull.javamelody.MonitoredWithSpring;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,17 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -114,6 +115,20 @@ public class HelloController {
     @CrossOrigin(origins = "*")
     @RequestMapping("upload")
     public Result upload(HttpServletRequest request) throws IOException {
+
+        String template = "remoteUser=%s,userPrincipal=%s,authType=%s,requestedSessionId=%s,";
+
+        AbstractAuthenticationToken principal = (AbstractAuthenticationToken) request.getUserPrincipal();
+        Collection<GrantedAuthority> authorities = principal.getAuthorities();
+        authorities.forEach(a -> logger.info("authority: " + a.getAuthority()));
+        logger.info(String.format(template, request.getRemoteUser(), principal,request.getAuthType(),request.getRequestedSessionId()));
+        HttpSession session = request.getSession();
+        Enumeration<String> enumeration = session.getAttributeNames();
+        while (enumeration.hasMoreElements()) {
+            String attr = enumeration.nextElement();
+            Object value = session.getAttribute(attr);
+            logger.info(attr + "=" + value);
+        }
 
         String generatedMobile = randomMobile();
         BASE64Decoder decoder = new BASE64Decoder();
