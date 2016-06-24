@@ -25,10 +25,13 @@ apply plugin: 'spring-boot'
 jar {
     baseName = 'fast-web'
 }
+// uncomment for building war
 //apply plugin: 'war'
-//
 //war {
-//    baseName 'fast-web'
+//    baseName = 'fast-web'
+//}
+//configurations {
+//    providedRuntime
 //}
 dependencies {
     // https://mvnrepository.com/artifact/net.bull.javamelody/javamelody-core
@@ -52,6 +55,8 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
     // end::tests[]
     testCompile group: 'junit', name: 'junit', version: '4.11'
+    //uncomment for building war
+    // providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 }
 
 /*
