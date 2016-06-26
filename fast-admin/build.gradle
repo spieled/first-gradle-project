@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.3.5.RELEASE')
+    }
+}
+group 'com.mgj'
+version '0.0.1'
+apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+// 处理编译时的中文编码问题：“编码GBK的不可映射字符”
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'fast-web'
+}
+dependencies {
+    compile project(':fast-util')
+    compile group: 'net.bull.javamelody', name: 'javamelody-core', version: '1.60.0'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    compile("org.springframework.boot:spring-boot-starter-security:1.3.5.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.2'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

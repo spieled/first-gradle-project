@@ -8,12 +8,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * Created by yanqu on 2016/6/24.
  */
 public class Util {
+
+    public static final List<Object> singleList(Object object) {
+        ArrayList list = new ArrayList();
+        list.add(object);
+        return list;
+    }
+
     public static String randomMobile() {
         Random random = new Random();
         StringBuffer buffer = new StringBuffer();

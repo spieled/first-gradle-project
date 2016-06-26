@@ -3,4 +3,5 @@ include 'fast-util'
 include 'fast-web'
 include 'fast-api'
 include 'fast-core'
+include 'fast-admin'
 
