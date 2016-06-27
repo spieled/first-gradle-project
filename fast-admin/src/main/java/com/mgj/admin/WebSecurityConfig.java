@@ -21,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // http.authorizeRequests().anyRequest().permitAll();
+         http.authorizeRequests().anyRequest().permitAll();
         // TODO
         /*http
             .authorizeRequests()
@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public JdbcUserDetailsManager jdbcUserDetailsManager() {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
         jdbcUserDetailsManager.setDataSource(dataSource);
+        jdbcUserDetailsManager.setEnableGroups(true);
         return jdbcUserDetailsManager;
     }
 }

@@ -35,9 +35,6 @@ public class AuthController {
             GroupVo groupVo = new GroupVo();
             groupVo.setGroupName(groupName);
             List<GrantedAuthority> authorities = userDetailsManager.findGroupAuthorities(groupName);
-            /*for (GrantedAuthority authority : authorities) {
-                groupVo.getAuthorities().add(authority.getAuthority());
-            }*/
             authorities.forEach(s -> groupVo.getAuthorities().add(s.getAuthority()));
             groupVoList.add(groupVo);
         }
@@ -48,11 +45,17 @@ public class AuthController {
     @RequestMapping("users")
     public ModelAndView users(ModelAndView mv) {
         mv.setViewName("users");
-        Set<String> users = new HashSet<>();
+        Set<UserDetails> users = new HashSet<>();
         for (String groupName : userDetailsManager.findAllGroups()) {
             List<String> usersInGroup = userDetailsManager.findUsersInGroup(groupName);
-            users.addAll(usersInGroup);
+            for (String username : usersInGroup) {
+                UserDetails user = userDetailsManager.loadUserByUsername(username);
+                if (user != null) {
+                    users.add(user);
+                }
+            }
         }
+        mv.addObject("groups", userDetailsManager.findAllGroups());
         mv.addObject("users", users);
         return mv;
     }
@@ -60,8 +63,15 @@ public class AuthController {
 
 
     @RequestMapping("user/create")
-    public Result createUser(HttpServletRequest request, User user) {
+    public Result createUser(HttpServletRequest request, String username, String password, Boolean enabled) {
+        String[] groups = request.getParameterValues("group");
+        User user = new User(username, password, enabled, true, true, true, new ArrayList<>());
         userDetailsManager.createUser(user);
+        if (groups != null) {
+            for (String group : groups) {
+                userDetailsManager.addUserToGroup(username, group);
+            }
+        }
         return Result.ok();
     }
 
