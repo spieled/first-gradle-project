@@ -10,10 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /**
  * Created by yanqu on 2016/6/26.
@@ -21,9 +23,29 @@ import java.util.List;
 @RestController
 public class AuthController {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private JdbcUserDetailsManager userDetailsManager;
+
+    @RequestMapping("groups")
+    public ModelAndView group(ModelAndView mv) {
+        mv.setViewName("groups");
+        mv.addObject("groups", userDetailsManager.findAllGroups());
+        return mv;
+    }
+
+    @RequestMapping("users")
+    public ModelAndView users(ModelAndView mv) {
+        mv.setViewName("users");
+        Set<String> users = new HashSet<>();
+        for (String groupName : userDetailsManager.findAllGroups()) {
+            List<String> usersInGroup = userDetailsManager.findUsersInGroup(groupName);
+            users.addAll(usersInGroup);
+        }
+        mv.addObject("users", users);
+        return mv;
+    }
+
+
 
     @RequestMapping("user/create")
     public Result createUser(HttpServletRequest request, User user) {
