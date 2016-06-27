@@ -1,5 +1,6 @@
 package com.mgj.admin;
 
+import com.mgj.admin.vo.GroupVo;
 import com.mgj.base.Constants;
 import com.mgj.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -29,7 +29,19 @@ public class AuthController {
     @RequestMapping("groups")
     public ModelAndView group(ModelAndView mv) {
         mv.setViewName("groups");
-        mv.addObject("groups", userDetailsManager.findAllGroups());
+        List<GroupVo> groupVoList = new ArrayList<>();
+        List<String> groupNames = userDetailsManager.findAllGroups();
+        for (String groupName : groupNames) {
+            GroupVo groupVo = new GroupVo();
+            groupVo.setGroupName(groupName);
+            List<GrantedAuthority> authorities = userDetailsManager.findGroupAuthorities(groupName);
+            /*for (GrantedAuthority authority : authorities) {
+                groupVo.getAuthorities().add(authority.getAuthority());
+            }*/
+            authorities.forEach(s -> groupVo.getAuthorities().add(s.getAuthority()));
+            groupVoList.add(groupVo);
+        }
+        mv.addObject("groups", groupVoList);
         return mv;
     }
 
@@ -89,8 +101,10 @@ public class AuthController {
     @RequestMapping("group/create")
     public Result createGroup(String groupName, String authorities) {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (String auth : authorities.split(Constants.COMMA)) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(auth));
+        if (!StringUtils.isEmpty(authorities)) {
+            for (String auth : authorities.split(Constants.COMMA)) {
+                grantedAuthorities.add(new SimpleGrantedAuthority(auth));
+            }
         }
         userDetailsManager.createGroup(groupName, grantedAuthorities);
         return Result.ok();
@@ -118,6 +132,22 @@ public class AuthController {
     public Result listGroupAuthority(String groupName) {
         List<GrantedAuthority> authorities = userDetailsManager.findGroupAuthorities(groupName);
         return Result.ok(Constants.EMPTY, authorities);
+    }
+
+    @RequestMapping("group/authority/update")
+    public Result updateGroupAuthority(String groupName, String authorities) {
+        List<GrantedAuthority> oldAuthorities = userDetailsManager.findGroupAuthorities(groupName);
+        if (!oldAuthorities.isEmpty()) {
+            for (GrantedAuthority oldAuth : oldAuthorities) {
+                userDetailsManager.removeGroupAuthority(groupName, oldAuth);
+            }
+        }
+        if (!authorities.isEmpty()) {
+            for (String auth : authorities.split(Constants.COMMA)) {
+                userDetailsManager.addGroupAuthority(groupName, new SimpleGrantedAuthority(auth));
+            }
+        }
+        return Result.ok();
     }
 
     @RequestMapping("group/authority/add")
