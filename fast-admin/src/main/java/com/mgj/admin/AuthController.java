@@ -81,6 +81,18 @@ public class AuthController {
         return Result.ok();
     }
 
+    @RequestMapping("user/enabled/toggle")
+    public Result toggleUserEnabled(String username) {
+
+        UserDetails user = userDetailsManager.loadUserByUsername(username);
+        if (user == null) {
+            return Result.fail("用户不存在", Constants.EMPTY);
+        }
+        int targetStatus = user.isEnabled() ? 0 : 1;
+        userDetailsManager.getJdbcTemplate().update("update users set enabled=?", targetStatus);
+        return Result.ok();
+    }
+
     @RequestMapping("user/delete")
     public Result deleteUser(String username) {
         userDetailsManager.deleteUser(username);

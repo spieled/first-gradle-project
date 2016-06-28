@@ -3,7 +3,7 @@ var Confirm = {
     modalBackgroundId: '#modal-background',
     modalMainId: '#confirm-modal',
     customButton: {
-        'Okay': {
+        '确定': {
             'primary': true,
             'callback': function() {
                 Confirm.hide();
@@ -35,7 +35,7 @@ var Confirm = {
             closeButton = '<button id="modal-close" type="button" class="btn btn-default modal-custom-button">关闭</button>';
         else {
             self.customButton = {
-                'Okay': {
+                '确定': {
                     'primary': true,
                     'callback': function() {
                         Confirm.hide();

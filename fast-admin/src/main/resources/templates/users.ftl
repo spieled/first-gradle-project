@@ -85,7 +85,11 @@
                                                         [/#if]
                                                     </td>
                                                     <td class="hidden-xs">
-                                                        <button name="editBtn" class="btn btn-sm  btn-grey">编辑</button>
+                                                        [#if user.enabled]
+                                                        <button name="toggleEnabledBtn" class="btn btn-sm  btn-grey">禁用</button>
+                                                        [#else]
+                                                        <button name="toggleEnabledBtn" class="btn btn-sm  btn-grey">启用</button>
+                                                        [/#if]
                                                         <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
                                                     </td>
                                                 </tr>
@@ -175,17 +179,53 @@
                 }
             });
 
+            $('button[name=toggleEnabledBtn]').on('click', function() {
+                var tr = $(this).parent().parent();
+                var username = $(tr).find('td:eq(1)').text();
+                $.ajax({
+                    url: 'user/enabled/toggle',
+                    data: {username: username},
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.reload();
+                        } else {
+                            Confirm.show('操作提示',response.msg, {
+                                '确定':{'primary': true,callback: function() {Confirm.hide();}}
+                            });
+                        }
+                    }
+                });
+            });
+
+            /* 更新用户 */
+            /*$('button[name=editBtn]').on('click', function() {
+                var tr = $(this).parent().parent();
+                var username = $(tr).find('td:eq(1)').text();
+                var authorities = $(tr).find('td:eq(2)').text();
+                var oldAuth = '';
+                $.each(authorities.split(","), function(index, item) {
+                    if (index == 0) {
+                        oldAuth += $.trim(item);
+                    } else {
+                        oldAuth += ',' + $.trim(item);
+                    }
+                }) ;
+                $('#editUserModal').modal('show');
+                $('#editUserForm').find('input[name=username]').val(username);
+                // $('#editUserForm').find('textarea[name=authorities]').text(oldAuth);
+            });*/
+
             /* 删除 */
             $('button[name=deleteBtn]').on('click', function() {
                 var tr = $(this).parent().parent();
-                var userName = $(tr).find('td:eq(1)').text();
-                Confirm.show('操作提示', '确认删除用户【'+userName+'】吗？此操作不可恢复！', {
+                var username = $(tr).find('td:eq(1)').text();
+                Confirm.show('操作提示', '确认删除用户【'+username+'】吗？此操作不可恢复！', {
                     '确认删除': {
                         'primary': true,
                         'callback': function() {
                             $.ajax({
                                 url: '/user/delete',
-                                data: {userName: userName},
+                                data: {username: username},
                                 success: function(response) {
                                     if (response.success) {
                                         window.location.href = '/users';
