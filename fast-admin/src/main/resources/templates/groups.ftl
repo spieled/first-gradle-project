@@ -43,9 +43,6 @@
                                         <h4><i class="fa fa-table"></i>分组列表</h4>
                                         <div class="tools hidden-xs">
                                             <button id="createGroupBtn" class="btn btn-sm btn-danger">新建分组</button>
-                                            <a href="javascript:;" class="reload">
-                                                <i class="fa fa-refresh"></i>
-                                            </a>
                                             <a href="javascript:;" class="collapse">
                                                 <i class="fa fa-chevron-up"></i>
                                             </a>

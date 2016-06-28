@@ -44,8 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JdbcUserDetailsManager jdbcUserDetailsManager() {
-        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager();
+    public CustomJdbcUserDetailsManager jdbcUserDetailsManager() {
+        CustomJdbcUserDetailsManager jdbcUserDetailsManager = new CustomJdbcUserDetailsManager();
         jdbcUserDetailsManager.setDataSource(dataSource);
         jdbcUserDetailsManager.setEnableGroups(true);
         return jdbcUserDetailsManager;

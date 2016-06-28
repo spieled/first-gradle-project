@@ -43,9 +43,6 @@
                                         <h4><i class="fa fa-table"></i>用户列表</h4>
                                         <div class="tools hidden-xs">
                                             <button id="createUserBtn" class="btn btn-sm btn-danger">新建用户</button>
-                                            <a href="javascript:;" class="reload">
-                                                <i class="fa fa-refresh"></i>
-                                            </a>
                                             <a href="javascript:;" class="collapse">
                                                 <i class="fa fa-chevron-up"></i>
                                             </a>
@@ -57,6 +54,7 @@
                                             <tr>
                                                 <th>序号</th>
                                                 <th>用户名</th>
+                                                <th>所属分组</th>
                                                 <th>拥有权限</th>
                                                 <th>启用状态</th>
                                                 <th>操作</th>
@@ -69,6 +67,15 @@
                                                     <td>${user_index+1}</td>
                                                     <td>${user.username}</td>
                                                     <td>
+                                                        [#list user.groups as group]
+                                                            [#if group_index == 0]
+                                                            ${group}
+                                                            [#else]
+                                                                ,${group}
+                                                            [/#if]
+                                                        [/#list]
+                                                    </td>
+                                                    <td>
                                                         [#list user.authorities as auth]
                                                             [#if auth_index == 0]
                                                             ${auth}
@@ -77,19 +84,21 @@
                                                             [/#if]
                                                         [/#list]
                                                     </td>
-                                                    <td>
-                                                        [#if user.enabled]
-                                                            启用
-                                                        [#else]
-                                                            禁用
-                                                        [/#if]
-                                                    </td>
+
+                                                    [#if user.enabled]
+                                                    <td value="true"><label class="text-success">启用</label></td>
+                                                    [#else]
+                                                    <td value="false"><label class="text-danger">禁用</label></td>
+                                                    [/#if]
+
                                                     <td class="hidden-xs">
                                                         [#if user.enabled]
-                                                        <button name="toggleEnabledBtn" class="btn btn-sm  btn-grey">禁用</button>
+                                                        <button name="toggleEnabledBtn" class="btn btn-sm  btn-warning">禁用</button>
                                                         [#else]
-                                                        <button name="toggleEnabledBtn" class="btn btn-sm  btn-grey">启用</button>
+                                                        <button name="toggleEnabledBtn" class="btn btn-sm  btn-info">启用</button>
                                                         [/#if]
+                                                        <button name="editBtn" class="btn btn-sm btn-success">编辑</button>
+                                                        <button name="resetPasswordBtn" class="btn btn-sm btn-primary">重置密码</button>
                                                         <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
                                                     </td>
                                                 </tr>
@@ -130,7 +139,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">密码</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="password" class="form-control" placeholder="密码">
+                                    <input type="password" name="password" class="form-control" placeholder="密码">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -163,6 +172,78 @@
         </div>
     </div>
 
+    [#-- 编辑用户 --]
+    <div class="modal-open modal-soft">
+        <div class="modal fade" id="editUserModal" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form id="editUserForm" class="form-horizontal" role="form" action="user/update">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名称</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="username" class="form-control" readonly="readonly" placeholder="用户名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">启用状态</label>
+                                <div class="col-sm-9 checkbox-inline">
+                                    <label><input type="radio" id="enable_true" name="enabled" value="true">
+                                        启用</label>
+                                    <label><input type="radio" id="enable_false" name="enabled" value="false">
+                                        禁用</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">所属分组</label>
+                                <div class="col-sm-9 radio-inline">
+                                [#if groups?? && groups?size>0]
+                                    [#list groups as group]
+                                        <label><input type="checkbox" name="group" value="${group}">
+                                        ${group}</label>
+                                    [/#list]
+                                [/#if]
+                                </div>
+                            </div>
+                            <div class="form-group center">
+                                <button type="submit" class="btn btn-success">保存修改</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    [#-- 编辑用户 --]
+    <div class="modal-open modal-soft">
+        <div class="modal fade" id="resetPasswordModal" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form id="resetPasswordForm" class="form-horizontal" role="form" action="user/password/reset">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名称</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="username" class="form-control" readonly="readonly" placeholder="用户名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">密码</label>
+                                <div class="col-sm-9">
+                                    <input type="password" name="password" class="form-control" placeholder="新密码"/>
+                                </div>
+                            </div>
+                            <div class="form-group center">
+                                <button type="submit" class="btn btn-success">重置密码</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     [#include 'base/footer.html'/]
     <script>
 
@@ -174,7 +255,23 @@
             $('#createUserForm').ajaxForm({
                 success: function (response) {
                     if (response.success) {
-                        window.location.href = '/users';
+                        window.location.reload();
+                    }
+                }
+            });
+
+            $('#editUserForm').ajaxForm({
+                success: function (response) {
+                    if (response.success) {
+                        window.location.reload();
+                    }
+                }
+            });
+
+            $('#resetPasswordForm').ajaxForm({
+                success: function (response) {
+                    if (response.success) {
+                        window.location.reload();
                     }
                 }
             });
@@ -198,22 +295,28 @@
             });
 
             /* 更新用户 */
-            /*$('button[name=editBtn]').on('click', function() {
+            $('button[name=editBtn]').on('click', function() {
                 var tr = $(this).parent().parent();
                 var username = $(tr).find('td:eq(1)').text();
-                var authorities = $(tr).find('td:eq(2)').text();
-                var oldAuth = '';
-                $.each(authorities.split(","), function(index, item) {
-                    if (index == 0) {
-                        oldAuth += $.trim(item);
-                    } else {
-                        oldAuth += ',' + $.trim(item);
-                    }
-                }) ;
+                var groups = $(tr).find('td:eq(2)').text();
+                var enabled = $(tr).find('td:eq(4)').attr('value');
                 $('#editUserModal').modal('show');
+
+                $.each(groups.split(","), function(index, item) {
+                    $('#editUserForm').find('input[name=group][value='+$.trim(item)+']').attr('checked', 'checked');
+                }) ;
+
                 $('#editUserForm').find('input[name=username]').val(username);
-                // $('#editUserForm').find('textarea[name=authorities]').text(oldAuth);
-            });*/
+                $('#editUserForm').find('input[name=enabled][value='+enabled+']').attr('checked', 'checked');
+            });
+
+            /* 重置用户密码 */
+            $('button[name=resetPasswordBtn]').on('click', function() {
+                var tr = $(this).parent().parent();
+                var username = $(tr).find('td:eq(1)').text();
+                $('#resetPasswordModal').modal('show');
+                $('#resetPasswordForm').find('input[name=username]').val(username);
+            });
 
             /* 删除 */
             $('button[name=deleteBtn]').on('click', function() {
