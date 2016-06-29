@@ -1,14 +1,18 @@
 package com.mgj.admin;
 
+import com.mgj.base.Constants;
 import com.mgj.util.LuosimaoSendUtil;
 import com.mgj.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -58,6 +62,20 @@ public class PassportController {
             return Result.ok();
         }
         return Result.fail();
+    }
+
+    @RequestMapping("register")
+    public Result register(String username, String password) {
+        if (userDetailsManager.userExists(username)) {
+            return Result.fail(String.format("用户名【%s】已被使用", username), Constants.EMPTY);
+        }
+        User user = new User(username, password, true, true, true, true, new ArrayList<>());
+        userDetailsManager.createUser(user);
+        // FIXME just add to basic groups
+        for (String group : userDetailsManager.findAllGroups()) {
+            userDetailsManager.addUserToGroup(username, group);
+        }
+        return Result.ok();
     }
 
 }

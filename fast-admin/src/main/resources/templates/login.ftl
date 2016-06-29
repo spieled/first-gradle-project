@@ -86,7 +86,7 @@
 							<div class="login-box-plain">
 								<h2 class="bigintro">注 册</h2>
 								<div class="divide-40"></div>
-								<form role="form" name="registerForm" action="/register">
+								<form role="form" id="registerForm" name="registerForm" action="/passport/register">
 								  <div class="form-group">
 									<label for="registerUsername">用户名</label>
 									<i class="fa fa-mobile"></i>
@@ -232,7 +232,11 @@
 		/* 注册 */
 		$('#registerForm').ajaxForm({
 			success: function(response) {
-				window.location.href = '/login';
+				if (response.success) {
+                    window.location.reload();
+                } else {
+					Confirm.show('操作提示', response.msg);
+				}
 			}
 		});
 		/* 忘记密码验证手机号 */
@@ -256,7 +260,7 @@
 		/* 忘记密码重置密码 */
 		$('#resetForm').ajaxForm({
 			success: function (response) {
-				window.location.href = '/login';
+				window.location.reload();
 			}
 		});
 		var urlParams = $.getUrlParams();

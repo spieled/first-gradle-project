@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/bootstrap-dist/**", "/css/**", "/email_templates/**", "/font-awesome/**",
-                "/frontend_theme/**", "/img/**", "/js/**", "**.html");
+                "/frontend_theme/**", "/img/**", "/js/**", "/**/*.html");
     }
 
     @Override
