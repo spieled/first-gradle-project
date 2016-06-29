@@ -3,6 +3,7 @@ package com.mgj.admin;
 import com.mgj.admin.vo.UserVo;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

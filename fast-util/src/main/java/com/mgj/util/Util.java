@@ -10,12 +10,24 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by yanqu on 2016/6/24.
  */
 public class Util {
+
+    public static String generateValidateCode() {
+        StringBuffer buffer = new StringBuffer();
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            buffer.append(random.nextInt(10));
+        }
+        String code = buffer.toString();
+        return code;
+    }
 
     public static final List<Object> singleList(Object object) {
         ArrayList list = new ArrayList();

@@ -31,7 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // TODO
         http
             .authorizeRequests()
-                .antMatchers("/", "/index", "/beans", "/autoconfig", "/health").permitAll()
+                .antMatchers("/", "/index", "/passport/**/*", "/autoconfig", "/health")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
