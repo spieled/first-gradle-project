@@ -46,6 +46,11 @@
         var directLabel = $(directLi).find('span').text();
         $('#breadcrumb').append('<li>' + directLabel + '</li>');
 
+        /* 退出动作 */
+        $('#logoutBtn').on('click', function () {
+            $('#logoutForm').trigger('submit');
+        })
+
     });
 </script>
 <!-- /JAVASCRIPTS -->

@@ -49,9 +49,10 @@
 						<div class="col-md-4 col-md-offset-4">
 							<div class="login-box-plain">
 								<h2 class="bigintro">登 录</h2>
-								<div class="divide-40">
+								<div id="errorMsg" class="divide-40 text-error" style="text-align:center; color: #b94a48;">
 								</div>
 								<form role="form" id="loginForm" action="/login" method="post">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								  <div class="form-group">
 									<label for="loginUsername">用户名</label>
 									<i class="fa fa-user"></i><!--<i class="fa fa-envelope"></i>-->
@@ -63,7 +64,7 @@
 									<input type="password" class="form-control" name="password" id="loginPassword" placeholder="密码" >
 								  </div>
 								  <div class="form-actions">
-									<label class="checkbox"> <input type="checkbox" class="uniform" value=""> 记住密码</label>
+									<label class="checkbox"> <input type="checkbox" class="uniform" id="remember-me" name="remember-me"> 记住密码</label>
 									<button type="submit" class="btn btn-danger">登录</button>
 								  </div>
 								</form>
@@ -203,6 +204,8 @@
 	
 	<!-- UNIFORM -->
 	<script type="text/javascript" src="js/uniform/jquery.uniform.min.js"></script>
+    <!-- COOKIE -->
+    <script type="text/javascript" src="js/jQuery-Cookie/jquery.cookie.min.js"></script>
 	<!-- CUSTOM SCRIPT -->
 	<script src="js/script.js"></script>
 	<script>
@@ -218,11 +221,11 @@
 		}
 
 		/* 登录 */
-		$('#loginForm').ajaxForm({
+		/*$('#loginForm').ajaxForm({
 			success: function(response) {
 				window.location.href='/index';
 			}
-		});
+		});*/
 		/* 注册 */
 		$('#registerForm').ajaxForm({
 			success: function(response) {
@@ -241,6 +244,15 @@
 				window.location.href = '/login';
 			}
 		});
+		var urlParams = $.getUrlParams();
+		$.each(urlParams, function(index, item) {
+			if (item == 'error') {
+				$('#errorMsg').append('<div>用户名密码不正确</div>');
+			}
+            if (item == 'logout') {
+                $('#errorMsg').append('<div>您已成功退出</div>');
+            }
+		})
 	</script>
 	<!-- /JAVASCRIPTS -->
 </body>

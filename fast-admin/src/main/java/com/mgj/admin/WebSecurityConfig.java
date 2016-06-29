@@ -28,18 +28,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-         http.authorizeRequests().anyRequest().permitAll();
         // TODO
         http
             .authorizeRequests()
                 .antMatchers("/", "/index", "/beans", "/autoconfig", "/health").permitAll()
-                //.anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .and()
             .logout()
+                .logoutUrl("/logout")
                 .permitAll();
     }
 
@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         // TODO
         jdbcUserDetailsManager();
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.jdbcAuthentication().dataSource(dataSource).getUserDetailsService().setEnableGroups(true);
     }
 
     @Bean

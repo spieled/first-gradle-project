@@ -25,11 +25,14 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li><a href="#"><i class="fa fa-user"></i>个人中心</a></li>
-							<li><a href="login.html"><i class="fa fa-power-off"></i>退出</a></li>
+							<li><a href="javascript:;" id="logoutBtn"><i class="fa fa-power-off"></i>退出</a></li>
 						</ul>
 					</li>
 					<!-- END USER LOGIN DROPDOWN -->
 				</ul>
+			<form action="/logout" method="post" id="logoutForm">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
 				<!-- END TOP NAVIGATION MENU -->
 		</div>
 		
