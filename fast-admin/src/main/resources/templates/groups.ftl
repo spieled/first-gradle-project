@@ -10,94 +10,63 @@
     <section id="page">
     [#include 'base/header.html'/]
     [#include 'base/nav.html'/]
-        <div id="main-content">
-            <div class="container">
-                <div class="row">
-                    <div id="content" class="col-lg-12">
-                        <!-- PAGE HEADER-->
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="page-header">
-                                    <!-- BREADCRUMBS -->
-                                    <ul class="breadcrumb">
-                                        <li>
-                                            <i class="fa fa-home"></i>
-                                            <a href="index.html">首页</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">权限管理</a>
-                                        </li>
-                                        <li>分组</li>
-                                    </ul>
-                                    <!-- /BREADCRUMBS -->
-                                    <div class="clearfix">
-                                        <h3 class="content-title pull-left">分组</h3>
-                                    </div>
-                                    <div class="description">
-                                    </div>
-                                </div>
+    [#include 'base/content_header.html'/]
 
-                                <!-- BOX -->
-                                <div class="box border green">
-                                    <div class="box-title">
-                                        <h4><i class="fa fa-table"></i>分组列表</h4>
-                                        <div class="tools hidden-xs">
-                                            <button id="createGroupBtn" class="btn btn-sm btn-danger">新建分组</button>
-                                            <a href="javascript:;" class="collapse">
-                                                <i class="fa fa-chevron-up"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-body">
-                                        <table id="datatable1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th>序号</th>
-                                                <th>分组名称</th>
-                                                <th>拥有权限</th>
-                                                <th>操作</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            [#if groups?? && groups?size>0]
-                                                [#list groups as group]
-                                                <tr>
-                                                    <td>${group_index+1}</td>
-                                                    <td>${group.groupName}</td>
-                                                    <td>
-                                                        [#list group.authorities as auth]
-                                                            [#if auth_index == 0]
-                                                            ${auth}
-                                                            [#else]
-                                                            ,${auth}
-                                                            [/#if]
-                                                        [/#list]
-                                                    </td>
-                                                    <td class="hidden-xs">
-                                                        <button name="renameBtn" class="btn btn-sm  btn-success">更名</button>
-                                                        <button name="editBtn" class="btn btn-sm  btn-grey">编辑</button>
-                                                        <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
-                                                    </td>
-                                                </tr>
-                                                [/#list]
-                                            [#else]
-                                            <tr>
-                                                <td colspan="4">没有数据！</td>
-                                            </tr>
-                                            [/#if]
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- /BOX -->
-
-                            </div>
-                        </div>
-                        <!-- /PAGE HEADER -->
-                    </div><!-- /CONTENT-->
+        <!-- BOX -->
+        <div class="box border green">
+            <div class="box-title">
+                <h4><i class="fa fa-table"></i>分组列表</h4>
+                <div class="tools hidden-xs">
+                    <button id="createGroupBtn" class="btn btn-sm btn-danger">新建分组</button>
+                    <a href="javascript:;" class="collapse">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
                 </div>
             </div>
+            <div class="box-body">
+                <table id="datatable1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>分组名称</th>
+                        <th>拥有权限</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    [#if groups?? && groups?size>0]
+                        [#list groups as group]
+                        <tr>
+                            <td>${group_index+1}</td>
+                            <td>${group.groupName}</td>
+                            <td>
+                                [#list group.authorities as auth]
+                                    [#if auth_index == 0]
+                                    ${auth}
+                                    [#else]
+                                    ,${auth}
+                                    [/#if]
+                                [/#list]
+                            </td>
+                            <td class="hidden-xs">
+                                <button name="renameBtn" class="btn btn-sm  btn-success">更名</button>
+                                <button name="editBtn" class="btn btn-sm  btn-grey">编辑</button>
+                                <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        [/#list]
+                    [#else]
+                    <tr>
+                        <td colspan="4">没有数据！</td>
+                    </tr>
+                    [/#if]
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <!-- /BOX -->
+
+    [#include 'base/content_footer.html'/]
     </section>
 
     [#-- 新增分组 --]

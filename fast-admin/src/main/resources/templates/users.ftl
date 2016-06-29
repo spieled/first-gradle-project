@@ -10,117 +10,86 @@
     <section id="page">
     [#include 'base/header.html'/]
     [#include 'base/nav.html'/]
-        <div id="main-content">
-            <div class="container">
-                <div class="row">
-                    <div id="content" class="col-lg-12">
-                        <!-- PAGE HEADER-->
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="page-header">
-                                    <!-- BREADCRUMBS -->
-                                    <ul class="breadcrumb">
-                                        <li>
-                                            <i class="fa fa-home"></i>
-                                            <a href="index.html">首页</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">权限管理</a>
-                                        </li>
-                                        <li>用户</li>
-                                    </ul>
-                                    <!-- /BREADCRUMBS -->
-                                    <div class="clearfix">
-                                        <h3 class="content-title pull-left">用户</h3>
-                                    </div>
-                                    <div class="description">
-                                    </div>
-                                </div>
+    [#include 'base/content_header.html'/]
 
-                                <!-- BOX -->
-                                <div class="box border green">
-                                    <div class="box-title">
-                                        <h4><i class="fa fa-table"></i>用户列表</h4>
-                                        <div class="tools hidden-xs">
-                                            <button id="createUserBtn" class="btn btn-sm btn-danger">新建用户</button>
-                                            <a href="javascript:;" class="collapse">
-                                                <i class="fa fa-chevron-up"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="box-body">
-                                        <table id="datatable1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th>序号</th>
-                                                <th>用户名</th>
-                                                <th>所属分组</th>
-                                                <th>拥有权限</th>
-                                                <th>启用状态</th>
-                                                <th>操作</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            [#if users?? && users?size>0]
-                                                [#list users as user]
-                                                <tr>
-                                                    <td>${user_index+1}</td>
-                                                    <td>${user.username}</td>
-                                                    <td>
-                                                        [#list user.groups as group]
-                                                            [#if group_index == 0]
-                                                            ${group}
-                                                            [#else]
-                                                                ,${group}
-                                                            [/#if]
-                                                        [/#list]
-                                                    </td>
-                                                    <td>
-                                                        [#list user.authorities as auth]
-                                                            [#if auth_index == 0]
-                                                            ${auth}
-                                                            [#else]
-                                                                ,${auth}
-                                                            [/#if]
-                                                        [/#list]
-                                                    </td>
-
-                                                    [#if user.enabled]
-                                                    <td value="true"><label class="text-success">启用</label></td>
-                                                    [#else]
-                                                    <td value="false"><label class="text-danger">禁用</label></td>
-                                                    [/#if]
-
-                                                    <td class="hidden-xs">
-                                                        [#if user.enabled]
-                                                        <button name="toggleEnabledBtn" class="btn btn-sm  btn-warning">禁用</button>
-                                                        [#else]
-                                                        <button name="toggleEnabledBtn" class="btn btn-sm  btn-info">启用</button>
-                                                        [/#if]
-                                                        <button name="editBtn" class="btn btn-sm btn-success">编辑</button>
-                                                        <button name="resetPasswordBtn" class="btn btn-sm btn-primary">重置密码</button>
-                                                        <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
-                                                    </td>
-                                                </tr>
-                                                [/#list]
-                                            [#else]
-                                            <tr>
-                                                <td colspan="4">没有数据！</td>
-                                            </tr>
-                                            [/#if]
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- /BOX -->
-
-                            </div>
-                        </div>
-                        <!-- /PAGE HEADER -->
-                    </div><!-- /CONTENT-->
+        <!-- BOX -->
+        <div class="box border green">
+            <div class="box-title">
+                <h4><i class="fa fa-table"></i>用户列表</h4>
+                <div class="tools hidden-xs">
+                    <button id="createUserBtn" class="btn btn-sm btn-danger">新建用户</button>
+                    <a href="javascript:;" class="collapse">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
                 </div>
             </div>
+            <div class="box-body">
+                <table id="datatable1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>用户名</th>
+                        <th>所属分组</th>
+                        <th>拥有权限</th>
+                        <th>启用状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    [#if users?? && users?size>0]
+                        [#list users as user]
+                        <tr>
+                            <td>${user_index+1}</td>
+                            <td>${user.username}</td>
+                            <td>
+                                [#list user.groups as group]
+                                    [#if group_index == 0]
+                                    ${group}
+                                    [#else]
+                                        ,${group}
+                                    [/#if]
+                                [/#list]
+                            </td>
+                            <td>
+                                [#list user.authorities as auth]
+                                    [#if auth_index == 0]
+                                    ${auth}
+                                    [#else]
+                                        ,${auth}
+                                    [/#if]
+                                [/#list]
+                            </td>
+
+                            [#if user.enabled]
+                            <td value="true"><label class="text-success">启用</label></td>
+                            [#else]
+                            <td value="false"><label class="text-danger">禁用</label></td>
+                            [/#if]
+
+                            <td class="hidden-xs">
+                                [#if user.enabled]
+                                <button name="toggleEnabledBtn" class="btn btn-sm  btn-warning">禁用</button>
+                                [#else]
+                                <button name="toggleEnabledBtn" class="btn btn-sm  btn-info">启用</button>
+                                [/#if]
+                                <button name="editBtn" class="btn btn-sm btn-success">编辑</button>
+                                <button name="resetPasswordBtn" class="btn btn-sm btn-primary">重置密码</button>
+                                <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        [/#list]
+                    [#else]
+                    <tr>
+                        <td colspan="4">没有数据！</td>
+                    </tr>
+                    [/#if]
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <!-- /BOX -->
+
+    [#include 'base/content_footer.html'/]
     </section>
 
     [#-- 新增用户 --]

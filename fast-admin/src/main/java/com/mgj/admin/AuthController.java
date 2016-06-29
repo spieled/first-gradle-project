@@ -99,7 +99,6 @@ public class AuthController {
 
     @RequestMapping("user/enabled/toggle")
     public Result toggleUserEnabled(String username) {
-
         UserDetails user = userDetailsManager.loadUserByUsername(username);
         if (user == null) {
             return Result.fail("用户不存在", Constants.EMPTY);

@@ -34,7 +34,7 @@
 					<div class="row">
 						<div class="col-md-4 col-md-offset-4">
 							<div id="logo">
-								<a href="index.html"><img src="img/logo/logo_mgj.png" height="40" alt="logo name" /></a>
+								<a href="index.html"><img src="/img/logo/logo_mgj.png" height="40" alt="logo name" /></a>
 							</div>
 						</div>
 					</div>
@@ -49,8 +49,9 @@
 						<div class="col-md-4 col-md-offset-4">
 							<div class="login-box-plain">
 								<h2 class="bigintro">登 录</h2>
-								<div class="divide-40"></div>
-								<form role="form" id="loginForm">
+								<div class="divide-40">
+								</div>
+								<form role="form" id="loginForm" action="/login" method="post">
 								  <div class="form-group">
 									<label for="loginUsername">用户名</label>
 									<i class="fa fa-user"></i><!--<i class="fa fa-envelope"></i>-->
@@ -84,7 +85,7 @@
 							<div class="login-box-plain">
 								<h2 class="bigintro">注 册</h2>
 								<div class="divide-40"></div>
-								<form role="form" name="registerForm">
+								<form role="form" name="registerForm" action="/register">
 								  <div class="form-group">
 									<label for="registerUsername">用户名</label>
 									<i class="fa fa-user"></i>
@@ -122,7 +123,7 @@
 							<div class="login-box-plain">
 								<h2 class="bigintro">重 置 密 码</h2>
 								<div class="divide-40"></div>
-								<form role="form" id="forgotForm">
+								<form role="form" id="forgotForm" action="/forgot/verify">
 								  <div class="form-group">
 									<label for="forgotUsername">手机号</label>
 									<i class="fa fa-envelope"></i>
@@ -134,7 +135,8 @@
 										<div class="input-group">
 											<input type="text" class="form-control" name="verifyCode" id="forgotVerifyCode" placeholder="输入验证码">
 											<span class="input-group-btn">
-												<button class="btn btn-primary" type="button">
+												<#--onclick="swapScreen('reset'); return false;"-->
+												<button class="btn btn-primary" type="button" >
 												发送短信验证码
 												</button>
 											</span>
@@ -161,7 +163,7 @@
 							<div class="login-box-plain">
 								<h2 class="bigintro">重 置 密 码</h2>
 								<div class="divide-40"></div>
-								<form role="form" id="resetForm">
+								<form role="form" id="resetForm" action="user/password/reset">
 									<div class="form-group">
 										<label for="registerPassword">新密码</label>
 										<i class="fa fa-lock"></i>
@@ -195,6 +197,8 @@
 	<script src="js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
 	<!-- BOOTSTRAP -->
 	<script src="bootstrap-dist/js/bootstrap.min.js"></script>
+    <!-- JQUERY FORM -->
+    <script src="js/jquery-form/jquery.form.js"></script>
 	
 	
 	<!-- UNIFORM -->
@@ -212,6 +216,7 @@
 			jQuery('.visible').removeClass('visible animated fadeInUp');
 			jQuery('#'+id).addClass('visible animated fadeInUp');
 		}
+
 		/* 登录 */
 		$('#loginForm').ajaxForm({
 			success: function(response) {

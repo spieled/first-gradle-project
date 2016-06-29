@@ -1,0 +1,12 @@
+margin-top-10 {
+    margin-top:10px !important;
+}
+.box .btn-sm {
+    padding: 3px 10px;
+    font-size: 12px;
+    line-height: 1.2;
+    border-radius: 3px;
+}
+.box.border > .box-title .tools .btn-sm {
+    margin-bottom: 7px;
+}

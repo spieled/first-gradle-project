@@ -17,7 +17,8 @@
 
 <script src="js/bootstrap-daterangepicker/daterangepicker.min.js"></script>
 <!-- SLIMSCROLL -->
-<script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script><script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+<script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
 <!-- COOKIE -->
 <script type="text/javascript" src="js/jQuery-Cookie/jquery.cookie.min.js"></script>
 <!-- CUSTOM SCRIPT -->
@@ -28,13 +29,23 @@
         App.setPage("groups");  //Set current page
         App.init(); //Initialise plugins and elements
 
+        /* 选中导航菜单nav */
         var pathname = window.location.pathname;
         var directLi = $('#sidebar a[href="'+ pathname+'"]').parent();
+        var parent;
         if ( $(directLi).parent().hasClass('sub')) {
             var parent = $(directLi).parent().parent();
             $(parent).addClass('active');
         }
         $(directLi).addClass('active');
+        /* 生成路径面包屑 */
+        if (parent) {
+            var parentLabel = $(parent).find('span[class=menu-text]').text();
+            $('#breadcrumb').append('<li><a href="#">' + parentLabel + '</a></li>');
+        }
+        var directLabel = $(directLi).find('span').text();
+        $('#breadcrumb').append('<li>' + directLabel + '</li>');
+
     });
 </script>
 <!-- /JAVASCRIPTS -->

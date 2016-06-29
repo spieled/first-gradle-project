@@ -8281,7 +8281,8 @@ div[data-role="editor-toolbar"] {
 }
 #login,
 #register,
-#forgot {
+#forgot,
+#reset{
   display: none;
 }
 #login_bg,

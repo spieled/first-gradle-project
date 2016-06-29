@@ -2603,7 +2603,7 @@ var App = function () {
 		}
 		if(!(is_mobile) && is_fixed_header){
 			//Manage margin top
-			$('#main-content').removeClass('margin-top-100').addClass('margin-top-50');
+			// $('#main-content').removeClass('margin-top-100').addClass('margin-top-50');
 		}
 	} 
 	/*-----------------------------------------------------------------------------------*/
