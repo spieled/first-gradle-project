@@ -1,5 +1,6 @@
 package com.mgj.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.util.Asserts;
 import sun.misc.BASE64Decoder;
 
@@ -23,6 +24,22 @@ public class Util {
     private static final Random random = new Random();
     private static final char[] digits = new char[] {'0','1','2','3','4','5','6','7','8','9'};
     private static final char[] hexes = new char[] {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+
+    public static String lowerFirstChar(String s) {
+        Asserts.check(!s.isEmpty(), "input string should not be empty");
+        return s.substring(0, 1).toLowerCase() + s.substring(1, s.length());
+    }
+
+    public static String deleteLastChar(String s) {
+        return s.substring(0, s.length()-1);
+    }
+
+    public static String deleteLastChar(String s, String target) {
+        if (s.endsWith(target)) {
+            return s.substring(0, s.length()-target.length());
+        }
+        return s;
+    }
 
     public static int randomInt(int length) {
         Asserts.check(length > 0, "random int length must bigger than zero");

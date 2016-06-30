@@ -7,8 +7,10 @@ import java.util.Date;
  * Created by yanqu on 2016/6/14.
  */
 public class BaseEntity implements Serializable {
-    private static final long serialVersionUID = 5096361521169232725L;
+    @Col
+    @AutoIncre
     private long id;
+    @Col
     private Date createTime = new Date();
 
     public long getId() {

@@ -1,8 +1,6 @@
 package com.mgj.base.socialinsurance;
 
-import com.mgj.base.BaseEntity;
-import com.mgj.base.BaseEnum;
-import com.mgj.base.Constants;
+import com.mgj.base.*;
 
 import java.util.Date;
 
@@ -10,6 +8,7 @@ import java.util.Date;
  * 参保人
  * Created by yanqu on 2016/6/15.
  */
+@Table
 public class InsuredPerson extends BaseEntity {
     public enum Status implements BaseEnum {
         NEW("未审核"),
@@ -45,54 +44,67 @@ public class InsuredPerson extends BaseEntity {
     /**
      * 用户ID
      */
+    @Col
     private long userId;
     /**
      * 姓名
      */
+    @Col
     private String username;
     /**
      *  公司ID
      */
+    @Col
     private long companyId;
     /**
      * 参保人姓名
      */
+    @Col
     private String name = Constants.EMPTY;
     /**
      * 身份证号
      */
+    @Col
     private String idNumber = Constants.EMPTY;
     /**
      * 户籍所在地城市ID
      */
+    @Col
     private int city;
     /**
      * 城市名称
      */
+    @Col
     private String cityName;
     /**
      * 户籍类型
      */
+    @Col
     private Type type;
     /**
      * 审核状态
      */
+    @Col
     private Status status = Status.NEW;
     /**
      * 更新时间
      */
+    @Col
     private Date updateTime;
     /**
      * 备注
      */
+    @Col
     private String note = Constants.EMPTY;
     /**
      * 是否在职,true：在职；false：离职
      */
+    @Col
     private boolean onStation;
     /**
      * 是否曾经参保，true：曾经参保；false：从未参保
      */
+    @Col
     private boolean insured;
 
     public long getUserId() {

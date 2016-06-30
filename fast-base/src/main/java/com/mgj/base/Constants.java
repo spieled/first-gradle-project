@@ -10,8 +10,10 @@ public class Constants {
     public static final String EMPTY = "";
     public static final String BLANK_SPACE = " ";
     public static final String COMMA = ",";
+    public static final String DOT = ".";
     public static final String SEMICOLON = ";";
     public static final String UNDERLINE = "_";
+    public static final String NEWLINE = "\r\n";
     public static final String UFT_8 = "UTF-8";
     public static final String GBK = "GBK";
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
