@@ -1,5 +1,6 @@
 package com.mgj.util;
 
+import org.apache.http.util.Asserts;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,40 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by yanqu on 2016/6/24.
  */
 public class Util {
+
+    private static final Random random = new Random();
+    private static final char[] digits = new char[] {'0','1','2','3','4','5','6','7','8','9'};
+    private static final char[] hexes = new char[] {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+
+    public static int randomInt(int length) {
+        Asserts.check(length > 0, "random int length must bigger than zero");
+        char[] chars = new char[length];
+        int index = 0;
+        do {
+            char c = digits[random.nextInt(length)];
+            if (index == 0 && c == '0') {
+                // do nothing, because digit first must not be zero
+            }
+            chars[index] = c;
+            index ++;
+        } while (index < length);
+        return Integer.parseInt(new String(chars));
+    }
+
+    public static String randomHex(int length) {
+        Asserts.check(length > 0, "random int length must bigger than zero");
+        char[] chars = new char[length];
+        int index = 0;
+        do {
+            char c = hexes[random.nextInt(length)];
+            if (index == 0 && c == '0') {
+                // do nothing, because digit first must not be zero
+            }
+            chars[index] = c;
+            index ++;
+        } while (index < length);
+        return new String(chars);
+    }
 
     public static String generateValidateCode() {
         StringBuffer buffer = new StringBuffer();
