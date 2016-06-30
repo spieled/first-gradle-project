@@ -27,6 +27,7 @@ jar {
 }
 dependencies {
     compile project(':fast-util')
+    compile project(':fast-core')
     compile group: 'net.bull.javamelody', name: 'javamelody-core', version: '1.60.0'
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-freemarker")

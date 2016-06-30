@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by yanqu on 2016/6/15.
  */
 public class InsuredPerson extends BaseEntity {
-    enum Status implements BaseEnum {
+    public enum Status implements BaseEnum {
         NEW("未审核"),
         CHECK_FAILED("审核不通过"),
         CHECK_SUCCESS("审核通过")
@@ -27,7 +27,7 @@ public class InsuredPerson extends BaseEntity {
         }
     }
 
-    enum Type implements BaseEnum {
+    public enum Type implements BaseEnum {
         CITY("城镇户籍"),
         TOWN("农村户籍")
         ;
@@ -47,6 +47,10 @@ public class InsuredPerson extends BaseEntity {
      */
     private long userId;
     /**
+     * 姓名
+     */
+    private String username;
+    /**
      *  公司ID
      */
     private long companyId;
@@ -62,6 +66,10 @@ public class InsuredPerson extends BaseEntity {
      * 户籍所在地城市ID
      */
     private int city;
+    /**
+     * 城市名称
+     */
+    private String cityName;
     /**
      * 户籍类型
      */
@@ -173,5 +181,21 @@ public class InsuredPerson extends BaseEntity {
 
     public void setInsured(boolean insured) {
         this.insured = insured;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 }
