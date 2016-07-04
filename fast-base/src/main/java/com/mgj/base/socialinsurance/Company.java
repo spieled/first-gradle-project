@@ -4,11 +4,15 @@ import com.mgj.base.BaseEntity;
 import com.mgj.base.BaseEnum;
 import com.mgj.base.Constants;
 
+import javax.persistence.Column;
+
 /**
  * 企业
  * Created by yanqu on 2016/6/15.
  */
 public class Company extends BaseEntity {
+
+    private static final long serialVersionUID = -2541583125493336808L;
 
     // 审核状态（0：未审核，1：审核不通过，2：审核通过）
     enum Status implements BaseEnum {
@@ -30,70 +34,87 @@ public class Company extends BaseEntity {
     /**
      * 用户ID
      */
+    @Column(name = "user_id")
     private long userId;
     /**
      * 企业名称
      */
+    @Column(name = "name")
     private String name = Constants.EMPTY;
     /**
      * 企业地址
      */
+    @Column(name = "address")
     private String address = Constants.EMPTY;
     /**
      * 法人
      */
+    @Column(name = "legal_person")
     private String legalPerson = Constants.EMPTY;
     /**
      * 法人身份证号
      */
+    @Column(name = "legal_person_id_number")
     private String legalPersonIdNumber = Constants.EMPTY;
     /**
      * 营业执照号码
      */
-    private String lisence = Constants.EMPTY;
+    @Column(name = "license")
+    private String license = Constants.EMPTY;
     /**
      * 组织机构代码
      */
+    @Column(name = "org_code")
     private String orgCode = Constants.EMPTY;
     /**
      * 税务登记号
      */
+    @Column(name = "tax_code")
     private String taxCode = Constants.EMPTY;
     /**
      * 法人身份证正面照
      */
+    @Column(name = "legal_person_id_positive")
     private String legalPersonIdPositive = Constants.BLANK_SPACE;
     /**
      * 法人身份证反面照
      */
+    @Column(name = "legal_person_id_negtive")
     private String legalPersonIdNegtive = Constants.EMPTY;
     /**
      * 营业执照原件照片
      */
-    private String lisencePic = Constants.EMPTY;
+    @Column(name = "license_pic")
+    private String licensePic = Constants.EMPTY;
     /**
      * 税务登记号原件照片
      */
+    @Column(name = "tax_pic")
     private String taxPic = Constants.EMPTY;
     /**
      * 组织机构代码原件照片
      */
+    @Column(name = "org_pic")
     private String orgPic = Constants.EMPTY;
     /**
      * 是否认证
      */
+    @Column(name = "authed")
     private boolean authed;
     /**
      * 审核状态
      */
+    @Column(name = "status")
     private Status status;
     /**
      * 联系人
      */
+    @Column(name = "contact_person")
     private String contactPerson;
     /**
      * 联系人手机号
      */
+    @Column(name = "mobile")
     private String mobile;
 
     public long getUserId() {
@@ -136,12 +157,12 @@ public class Company extends BaseEntity {
         this.legalPersonIdNumber = legalPersonIdNumber;
     }
 
-    public String getLisence() {
-        return lisence;
+    public String getLicense() {
+        return license;
     }
 
-    public void setLisence(String lisence) {
-        this.lisence = lisence;
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public String getOrgCode() {
@@ -176,12 +197,12 @@ public class Company extends BaseEntity {
         this.legalPersonIdNegtive = legalPersonIdNegtive;
     }
 
-    public String getLisencePic() {
-        return lisencePic;
+    public String getLicensePic() {
+        return licensePic;
     }
 
-    public void setLisencePic(String lisencePic) {
-        this.lisencePic = lisencePic;
+    public void setLicensePic(String licensePic) {
+        this.licensePic = licensePic;
     }
 
     public String getTaxPic() {

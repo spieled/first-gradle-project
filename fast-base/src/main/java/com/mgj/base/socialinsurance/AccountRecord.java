@@ -4,13 +4,20 @@ import com.mgj.base.BaseEntity;
 import com.mgj.base.BaseEnum;
 import com.mgj.base.Constants;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 
 /**
  * 账户变更记录
  * Created by yanqu on 2016/6/15.
  */
+@Entity
 public class AccountRecord extends BaseEntity {
+    private static final long serialVersionUID = -2350879273881339807L;
+
     // 变更类型（1：微信支付，2：支付宝支付，3：银联支付，4：线下汇款）
     enum Type implements BaseEnum {
         UNKNOWN("保密"),
@@ -33,18 +40,23 @@ public class AccountRecord extends BaseEntity {
     /**
      * 账户ID
      */
+    @Column(name = "account_id")
     private long accountId;
     /**
      * 变更金额
      */
+    @Column(name = "amount")
     private BigDecimal amount = BigDecimal.ZERO;
     /**
      * 支付渠道类型
      */
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private Type type = Type.UNKNOWN;
     /**
      * 备注
      */
+    @Column(name = "note")
     private String note = Constants.EMPTY;
 
     public long getAccountId() {

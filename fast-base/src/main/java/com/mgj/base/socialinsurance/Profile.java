@@ -3,60 +3,79 @@ package com.mgj.base.socialinsurance;
 import com.mgj.base.BaseEntity;
 import com.mgj.base.Gender;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Date;
 
 /**
  * 个人资料
  * Created by yanqu on 2016/6/15.
  */
+@Entity
 public class Profile extends BaseEntity {
+    private static final long serialVersionUID = -7927107618582267869L;
     /**
      * 用户ID
      */
+    @Column(name = "user_id")
     private long userId;
     /**
      * 用户头像URL地址
      */
+    @Column(name = "avatar")
     private String avatar;
     /**
      * 昵称
      */
+    @Column(name = "nick_name")
     private String nickName;
     /**
      * 地址
      */
+    @Column(name = "address")
     private String address;
     /**
      * 性别
      */
+    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
     private Gender gender = Gender.UNKNOWN;
     /**
      * 生日
      */
+    @Column(name = "birth")
     private Date birth;
     /**
      * 行业
      */
+    @Column(name = "profession")
     private String profession;
     /**
      * 身份证正面照URL地址
      */
+    @Column(name = "id_positive")
     private String idPositive;
     /**
      * 身份证反面照URL地址
      */
+    @Column(name = "id_negtive")
     private String idNegtive;
     /**
      * 邮箱地址
      */
+    @Column(name = "email")
     private String email;
     /**
      * 手机号
      */
+    @Column(name = "mobile")
     private String mobile;
     /**
      * 是否实名认证，true：实名认证；false：未实名认证；
      */
+    @Column(name = "real_authed")
     private boolean realAuthed;
 
     public long getUserId() {

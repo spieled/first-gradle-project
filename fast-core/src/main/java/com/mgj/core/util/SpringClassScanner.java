@@ -1,7 +1,7 @@
 package com.mgj.core.util;
 
 
-import com.mgj.base.Table;
+import com.mgj.base.annotation.Table;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;

@@ -4,6 +4,10 @@ import com.mgj.base.BaseEntity;
 import com.mgj.base.BaseEnum;
 import com.mgj.base.Constants;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,7 +15,10 @@ import java.util.Date;
  * 线下汇款记录
  * Created by yanqu on 2016/6/15.
  */
+@Entity
 public class OfflinePayRecord extends BaseEntity {
+    private static final long serialVersionUID = -8224135770834484150L;
+
     // 审核状态（0：未审核，1：审核不通过，2：审核通过）
     enum Status implements BaseEnum {
         NEW("未审核"),
@@ -32,38 +39,48 @@ public class OfflinePayRecord extends BaseEntity {
     /**
      * 用户ID
      */
+    @Column(name = "user_id")
     private long userId;
     /**
      * 汇款金额
      */
+    @Column(name = "amount")
     private BigDecimal amount = BigDecimal.ZERO;
     /**
      * 汇款银行
      */
+    @Column(name = "bank")
     private String bank = Constants.EMPTY;
     /**
      * 汇款凭证小票URL地址
      */
+    @Column(name = "ticket")
     private String ticket = Constants.EMPTY;
     /**
      * 审核状态
      */
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status = Status.NEW;
     /**
      * 更新时间
      */
+    @Column(name = "update_time")
     private Date updateTime;
     /**
      * 银行流水号
      */
+    @Column(name = "serial_number")
     private String serialNumber = Constants.EMPTY;
     /**
      * 银行卡号
      */
+    @Column(name = "card_number")
     private String cardNumber = Constants.EMPTY;
     /**
      * 账户ID
      */
+    @Column(name = "account_id")
     private long accountId;
 
     public long getUserId() {

@@ -3,13 +3,20 @@ package com.mgj.base.socialinsurance;
 import com.mgj.base.BaseEntity;
 import com.mgj.base.BaseEnum;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 
 /**
  * 订单
  * Created by yanqu on 2016/6/16.
  */
+@Entity(name = "insure_order")
 public class Order extends BaseEntity {
+    private static final long serialVersionUID = -5497951034778555855L;
+
     // 订单状态（0：待支付，1：已取消，2：已支付）
     enum Status implements BaseEnum {
         WAIT_PAY("待支付"),
@@ -30,30 +37,38 @@ public class Order extends BaseEntity {
     /**
      * 用户ID
      */
+    @Column(name = "user_id")
     private String userId;
     /**
      * 订单号
      */
+    @Column(name = "serial_number")
     private String serialNumber;
     /**
      * 订单标题
      */
+    @Column(name = "title")
     private String title;
     /**
      * 订单明细条数
      */
+    @Column(name = "item_number")
     private int itemNumber;
     /**
      * 总价
      */
+    @Column(name = "total_price")
     private BigDecimal totalPrice;
     /**
      * 订单状态
      */
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
     /**
      * 是否已删除
      */
+    @Column(name = "deleted")
     private boolean deleted;
 
     public String getUserId() {

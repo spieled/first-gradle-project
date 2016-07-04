@@ -1,16 +1,19 @@
 package com.mgj.base;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by yanqu on 2016/6/14.
  */
+@MappedSuperclass
 public class BaseEntity implements Serializable {
-    @Col
-    @AutoIncre
+    private static final long serialVersionUID = -1011494802786080954L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Col
+    @Column(name = "create_time")
     private Date createTime = new Date();
 
     public long getId() {

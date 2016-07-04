@@ -1,15 +1,23 @@
 package com.mgj.base.socialinsurance;
 
-import com.mgj.base.*;
+import com.mgj.base.BaseEntity;
+import com.mgj.base.BaseEnum;
+import com.mgj.base.Constants;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Date;
 
 /**
  * 参保人
  * Created by yanqu on 2016/6/15.
  */
-@Table
+@Entity
 public class InsuredPerson extends BaseEntity {
+    private static final long serialVersionUID = 3128940406108785070L;
+
     public enum Status implements BaseEnum {
         NEW("未审核"),
         CHECK_FAILED("审核不通过"),
@@ -44,67 +52,69 @@ public class InsuredPerson extends BaseEntity {
     /**
      * 用户ID
      */
-    @Col
+    @Column(name = "user_id")
     private long userId;
     /**
      * 姓名
      */
-    @Col
+    @Column(name = "username")
     private String username;
     /**
      *  公司ID
      */
-    @Col
+    @Column(name = "company_id")
     private long companyId;
     /**
      * 参保人姓名
      */
-    @Col
+    @Column(name = "name")
     private String name = Constants.EMPTY;
     /**
      * 身份证号
      */
-    @Col
+    @Column(name = "id_number")
     private String idNumber = Constants.EMPTY;
     /**
      * 户籍所在地城市ID
      */
-    @Col
+    @Column(name = "city")
     private int city;
     /**
      * 城市名称
      */
-    @Col
+    @Column(name = "city_name")
     private String cityName;
     /**
      * 户籍类型
      */
-    @Col
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private Type type;
     /**
      * 审核状态
      */
-    @Col
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status = Status.NEW;
     /**
      * 更新时间
      */
-    @Col
+    @Column(name = "update_time")
     private Date updateTime;
     /**
      * 备注
      */
-    @Col
+    @Column(name = "note")
     private String note = Constants.EMPTY;
     /**
      * 是否在职,true：在职；false：离职
      */
-    @Col
+    @Column(name = "on_station")
     private boolean onStation;
     /**
      * 是否曾经参保，true：曾经参保；false：从未参保
      */
-    @Col
+    @Column(name = "insured")
     private boolean insured;
 
     public long getUserId() {

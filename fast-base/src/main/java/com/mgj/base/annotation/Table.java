@@ -1,4 +1,4 @@
-package com.mgj.base;
+package com.mgj.base.annotation;
 
 import java.lang.annotation.*;
 
@@ -7,6 +7,6 @@ import java.lang.annotation.*;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface AutoIncre {
+@Target(ElementType.TYPE)
+public @interface Table {
 }

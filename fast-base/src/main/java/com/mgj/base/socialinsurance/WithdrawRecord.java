@@ -3,6 +3,10 @@ package com.mgj.base.socialinsurance;
 import com.mgj.base.BaseEntity;
 import com.mgj.base.BaseEnum;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,7 +14,10 @@ import java.util.Date;
  * 提现记录
  * Created by yanqu on 2016/6/16.
  */
+@Entity
 public class WithdrawRecord extends BaseEntity {
+    private static final long serialVersionUID = 2750229415661498539L;
+
     // 审核状态（0：未审核，1：审核不通过，2：审核通过）
     enum Status implements BaseEnum {
         NEW("未审核"),
@@ -33,38 +40,48 @@ public class WithdrawRecord extends BaseEntity {
     /**
      * 用户ID
      */
+    @Column(name = "user_id")
     private long userId;
     /**
      * 账户ID
      */
+    @Column(name = "account_id")
     private long accountId;
     /**
      * 提现金额
      */
+    @Column(name = "amount")
     private BigDecimal amount;
     /**
      * 银行卡所属银行
      */
+    @Column(name = "bank")
     private String bank;
     /**
      * 银行卡号
      */
+    @Column(name = "card_number")
     private String cardNumber;
     /**
      * 开户行
      */
+    @Column(name = "open_bank")
     private String openBank;
     /**
      * 提现状态
      */
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
     /**
      * 备注
      */
+    @Column(name = "note")
     private String note;
     /**
      * 更新时间
      */
+    @Column(name = "update_time")
     private Date updateTime;
 
     public long getUserId() {

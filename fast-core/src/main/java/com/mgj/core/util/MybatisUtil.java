@@ -1,8 +1,8 @@
 package com.mgj.core.util;
 
-import com.mgj.base.AutoIncre;
-import com.mgj.base.Col;
 import com.mgj.base.Constants;
+import com.mgj.base.annotation.AutoIncre;
+import com.mgj.base.annotation.Col;
 import com.mgj.util.Util;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
