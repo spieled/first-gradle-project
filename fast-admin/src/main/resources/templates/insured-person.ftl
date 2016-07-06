@@ -30,6 +30,8 @@
                     <tr>
                         <th>序号</th>
                         <th>姓名</th>
+                        <th>性别</th>
+                        <th>年龄</th>
                         <th>户籍类型</th>
                         <th>身份证号</th>
                         <th>公司</th>
@@ -46,6 +48,10 @@
                         <tr value="${person.id}">
                             <td data-attr="id" data-attr-value="${person.id}">${person_index+1}</td>
                             <td data-attr="name" data-attr-value="${person.name}">${person.name}</td>
+                            <td data-attr="name" data-attr-value="${person.gender}">
+                                [#if person.gender=="MALE"]男[#elseif person.gender=="FEMALE"]女[/#if]
+                            </td>
+                            <td data-attr="name" data-attr-value="${person.age}">${person.age}</td>
                             <td data-attr="type" data-attr-value="${person.type}">[#if person.type="CITY"]城镇[#elseif person.type="TOWN"]农村[/#if]</td>
                             <td data-attr="idNumber" data-attr-value="${person.idNumber}">${person.idNumber}</td>
                             <td data-attr="companyId" data-attr-value="${person.companyId}">
@@ -94,13 +100,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">姓名</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control" placeholder="姓名">
+                                    <input type="text" name="name" class="form-control" placeholder="姓名" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">户籍类型</label>
                                 <div class="col-sm-9">
-                                    <select name="type" class="form-control">
+                                    <select name="type" class="form-control" required>
                                         <option value="CITY">城镇</option>
                                         <option value="TOWN">农村</option>
                                     </select>
@@ -109,7 +115,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">身份证号</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="idNumber" class="form-control" placeholder="身份证号">
+                                    <input type="text" name="idNumber" class="form-control" placeholder="身份证号" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -121,12 +127,12 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            [#--<div class="form-group">
                                 <label class="col-sm-3 control-label">城市</label>
                                 <div class="col-sm-9">
                                     <input type="text" name="cityName" class="form-control" placeholder="城市">
                                 </div>
-                            </div>
+                            </div>--]
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">是否已参保</label>
                                 <div class="col-sm-9 checkbox-inline">
@@ -163,13 +169,13 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">姓名</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control" placeholder="姓名">
+                                    <input type="text" name="name" class="form-control" placeholder="姓名" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">户籍类型</label>
                                 <div class="col-sm-9">
-                                    <select name="type" class="form-control">
+                                    <select name="type" class="form-control" required>
                                         <option value="CITY">城镇</option>
                                         <option value="TOWN">农村</option>
                                     </select>
@@ -178,7 +184,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">身份证号</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="idNumber" class="form-control" placeholder="身份证号">
+                                    <input type="text" name="idNumber" class="form-control" placeholder="身份证号" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -193,7 +199,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">城市</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="cityName" class="form-control" placeholder="城市">
+                                    <input type="text" name="cityName" class="form-control" placeholder="城市" readonly="readonly">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -234,6 +240,8 @@
                 success: function (response) {
                     if (response.success) {
                         window.location.reload();
+                    } else {
+                        Confirm.show('操作提示', response.msg);
                     }
                 }
             });
@@ -241,6 +249,8 @@
                 success: function (response) {
                     if (response.success) {
                         window.location.reload();
+                    } else {
+                        Confirm.show('操作提示', response.msg);
                     }
                 }
             });

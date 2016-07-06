@@ -3,11 +3,13 @@ package com.mgj.base.socialinsurance;
 import com.mgj.base.BaseEntity;
 import com.mgj.base.BaseEnum;
 import com.mgj.base.Constants;
+import com.mgj.base.Gender;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -90,6 +92,17 @@ public class InsuredPerson extends BaseEntity {
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private Type type;
+    /**
+     * 出生年月日
+     */
+    @Column(name = "birth_ymd")
+    private int birthYmd;
+    /**
+     * 性别
+     */
+    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     /**
      * 审核状态
      */
@@ -219,5 +232,27 @@ public class InsuredPerson extends BaseEntity {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
+    }
+
+    public int getBirthYmd() {
+        return birthYmd;
+    }
+
+    public void setBirthYmd(int birthYmd) {
+        this.birthYmd = birthYmd;
+    }
+    public int getAge() {
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR)*100 + calendar.get(Calendar.MONTH) + 1;
+        int birthYear = this.birthYmd/100;
+        return (currentYear - birthYear)/100 +1;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }

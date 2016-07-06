@@ -5,6 +5,8 @@ import com.mgj.admin.base.BaseController;
 import com.mgj.base.Constants;
 import com.mgj.base.socialinsurance.InsuredPerson;
 import com.mgj.core.insured.InsuredService;
+import com.mgj.util.IdCardUtil;
+import com.mgj.util.Region;
 import com.mgj.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +58,15 @@ public class InsuredPersonController extends BaseController {
     public Result createInsuredPerson(HttpServletRequest request, InsuredPerson person) {
         String username = request.getRemoteUser();
         person.setUsername(username);
+        String idNumber = person.getIdNumber();
+        if (!IdCardUtil.isIDCard(idNumber)) {
+            return Result.fail(String.format("%s不是合法的身份证号码", idNumber), Constants.EMPTY);
+        }
+        Region region = IdCardUtil.resolveRegionCode(idNumber);
+        person.setCity(region.getCityCode());
+        person.setCityName(region.getCityName());
+        person.setBirthYmd(IdCardUtil.resolveBirthday(idNumber));
+        person.setGender(IdCardUtil.resolveGender(idNumber));
         insuredService.create(person);
         return Result.ok();
     }
@@ -63,14 +74,27 @@ public class InsuredPersonController extends BaseController {
     @RequestMapping("update")
     public Result editInsuredPerson(HttpServletRequest request, InsuredPerson person) {
         // TODO 更新须谨慎
+        String idNumber = person.getIdNumber();
+        if (!IdCardUtil.isIDCard(idNumber)) {
+            return Result.fail(String.format("%s不是合法的身份证号码", idNumber), Constants.EMPTY);
+        }
+        Region region = IdCardUtil.resolveRegionCode(idNumber);
+        person.setCity(region.getCityCode());
+        person.setCityName(region.getCityName());
+        person.setBirthYmd(IdCardUtil.resolveBirthday(idNumber));
+        person.setGender(IdCardUtil.resolveGender(idNumber));
+
         InsuredPerson dbPerson = insuredService.findOne(person.getId());
         dbPerson.setName(person.getName());
         dbPerson.setType(person.getType());
+        dbPerson.setCity(person.getCity());
         dbPerson.setCityName(person.getCityName());
         dbPerson.setCompanyId(person.getCompanyId());
         dbPerson.setInsured(person.isInsured());
         dbPerson.setOnStation(person.isOnStation());
         dbPerson.setUpdateTime(new Date());
+        dbPerson.setBirthYmd(person.getBirthYmd());
+        dbPerson.setGender(person.getGender());
         insuredService.create(dbPerson);
 
         return Result.ok();

@@ -1,5 +1,6 @@
 package com.mgj.util;
 import com.mgj.base.Constants;
+import com.mgj.base.Gender;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -65,7 +66,7 @@ public class IdCardUtil {
 
     /**
      * 身份证验证
-     *@param s  号码内容
+     *@param certNo  号码内容
      *@return 是否有效 null和"" 都是false
      */
     public static boolean isIDCard(String certNo){
@@ -122,6 +123,31 @@ public class IdCardUtil {
         return  year2bit;
     }
 
+    /**
+     * 从身份证号码提取出身年月日
+     * @param idCardNumber
+     * @return
+     */
+    public static int resolveBirthday(String idCardNumber) {
+        return Integer.parseInt(idCardNumber.substring(6, 14));
+    }
+
+    /**
+     * 从身份证号码提取性别
+     * @param idCardNumber
+     * @return
+     */
+    public static Gender resolveGender(String idCardNumber) {
+        int length = idCardNumber.length();
+        int genderCode = Integer.parseInt(idCardNumber.substring(length-2, length-1));
+        return genderCode%2 == 0 ? Gender.FEMALE : Gender.MALE;
+    }
+
+    /**
+     * 从身份证号码提取地址信息
+     * @param idCardNumber
+     * @return
+     */
     public static Region resolveRegionCode(String idCardNumber) {
         int regionCode = Integer.parseInt(idCardNumber.substring(0, 6));
         int cityCode = regionCode/100 * 100;
