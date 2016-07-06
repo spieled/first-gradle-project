@@ -3622,4 +3622,10 @@ public class IdCardGenerator {
         }
     }
 
+    public static void main(String[] args) {
+        IdCardGenerator ge = new IdCardGenerator();
+        for (int i=0; i<30; i++) {
+            System.out.println(ge.generate());
+        }
+    }
 }

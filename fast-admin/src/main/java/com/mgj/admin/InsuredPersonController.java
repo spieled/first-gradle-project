@@ -86,6 +86,7 @@ public class InsuredPersonController extends BaseController {
 
         InsuredPerson dbPerson = insuredService.findOne(person.getId());
         dbPerson.setName(person.getName());
+        dbPerson.setIdNumber(person.getIdNumber());
         dbPerson.setType(person.getType());
         dbPerson.setCity(person.getCity());
         dbPerson.setCityName(person.getCityName());

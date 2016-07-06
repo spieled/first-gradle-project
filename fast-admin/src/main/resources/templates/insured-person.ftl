@@ -233,7 +233,7 @@
         $(function () {
 
             $('#createPersonBtn').on('click', function () {
-                $("#createPersonModal").modal('show');
+                $("#createPersonModal").modal({backdrop: 'static', keyboard: false});
             });
             /* ajax 提交分组表单 */
             $('#createPersonForm').ajaxForm({
@@ -255,7 +255,7 @@
                 }
             });
 
-            /* 更新分组权限 */
+            /* 更新 */
             $('button[name=editBtn]').on('click', function() {
                 var tr = $(this).parent().parent();
 
