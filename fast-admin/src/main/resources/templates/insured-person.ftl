@@ -43,15 +43,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    [#if insuredPersons.content?? && insuredPersons.content?size>0]
-                        [#list insuredPersons.content as person]
+                    [#if pageData.content?? && pageData.content?size>0]
+                        [#list pageData.content as person]
                         <tr value="${person.id}">
                             <td data-attr="id" data-attr-value="${person.id}">${person_index+1}</td>
                             <td data-attr="name" data-attr-value="${person.name}">${person.name}</td>
-                            <td data-attr="name" data-attr-value="${person.gender}">
+                            <td data-attr="gender" data-attr-value="${person.gender}">
                                 [#if person.gender=="MALE"]男[#elseif person.gender=="FEMALE"]女[/#if]
                             </td>
-                            <td data-attr="name" data-attr-value="${person.age}">${person.age}</td>
+                            <td data-attr="age" data-attr-value="${person.age}">${person.age}</td>
                             <td data-attr="type" data-attr-value="${person.type}">[#if person.type="CITY"]城镇[#elseif person.type="TOWN"]农村[/#if]</td>
                             <td data-attr="idNumber" data-attr-value="${person.idNumber}">${person.idNumber}</td>
                             <td data-attr="companyId" data-attr-value="${person.companyId}">
@@ -76,13 +76,13 @@
                         [/#list]
                     [#else]
                     <tr>
-                        <td colspan="4">没有数据！</td>
+                        <td colspan="20">没有数据！</td>
                     </tr>
                     [/#if]
                     </tbody>
 
                 </table>
-            [@pagination totalPages="${insuredPersons.totalPages}" number="${insuredPersons.number}" first="${insuredPersons.first?string('true', 'false')}" last="${insuredPersons.last?string('true', 'false')}"/]
+            [@pagination totalPages="${pageData.totalPages}" number="${pageData.number}" first="${pageData.first?string('true', 'false')}" last="${pageData.last?string('true', 'false')}"/]
             </div>
         </div>
         <!-- /BOX -->

@@ -5,11 +5,15 @@ import com.mgj.base.BaseEnum;
 import com.mgj.base.Constants;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * 企业
  * Created by yanqu on 2016/6/15.
  */
+@Entity
 public class Company extends BaseEntity {
 
     private static final long serialVersionUID = -2541583125493336808L;
@@ -36,6 +40,11 @@ public class Company extends BaseEntity {
      */
     @Column(name = "user_id")
     private long userId;
+    /**
+     * 用户名
+     */
+    @Column(name = "username")
+    private String username;
     /**
      * 企业名称
      */
@@ -105,7 +114,8 @@ public class Company extends BaseEntity {
      * 审核状态
      */
     @Column(name = "status")
-    private Status status;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.NEW;
     /**
      * 联系人
      */
@@ -123,6 +133,14 @@ public class Company extends BaseEntity {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {

@@ -35,9 +35,9 @@ public class InsuredPersonController extends BaseController {
     public ModelAndView insuredPerson(HttpServletRequest request, ModelAndView mv) {
         mv.setViewName("insured-person");
         String username = request.getRemoteUser();
-        Page<InsuredPerson> insuredPersons = insuredService.findByUsername(username, getPageable(request));
-        logger.info(JSON.toJSONString(insuredPersons));
-        mv.addObject("insuredPersons", insuredPersons);
+        Page<InsuredPerson> pageData = insuredService.findByUsername(username, getPageable(request));
+        logger.info(JSON.toJSONString(pageData));
+        mv.addObject("pageData", pageData);
         return mv;
     }
 

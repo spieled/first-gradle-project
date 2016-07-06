@@ -57,7 +57,7 @@ public class InsuredPerson extends BaseEntity {
     @Column(name = "user_id")
     private long userId;
     /**
-     * 姓名
+     * 用户名
      */
     @Column(name = "username")
     private String username;

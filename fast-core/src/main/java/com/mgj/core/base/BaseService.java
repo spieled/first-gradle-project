@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by yanqu on 2016/7/4.
@@ -66,6 +67,13 @@ public class BaseService<DAO extends BaseDao<T,ID>, T extends BaseEntity, ID ext
 
     public Page<T> findAll(Pageable pageable) {
         return dao.findAll(pageable);
+    }
+
+    public List<T> findByUsername(String username) {
+        return dao.findByUsername(username);
+    }
+    public Page<T> findByUsername(String username, Pageable pageable) {
+        return dao.findByUsername(username, pageable);
     }
 
 }

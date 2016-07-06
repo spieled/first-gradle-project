@@ -4,11 +4,7 @@ import com.mgj.base.socialinsurance.InsuredPerson;
 import com.mgj.core.base.BaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by yanqu on 2016/6/29.
@@ -17,14 +13,5 @@ import java.util.List;
 public class InsuredService extends BaseService<InsuredPersonDao, InsuredPerson, Long> {
 
     private static Logger logger = LoggerFactory.getLogger(InsuredService.class);
-
-    public List<InsuredPerson> findByUsername(String username) {
-        return dao.findByUsername(username);
-    }
-
-    public Page<InsuredPerson> findByUsername(String username, Pageable pageable) {
-         return dao.findAllByUsername(username, pageable);
-    }
-
 
 }
