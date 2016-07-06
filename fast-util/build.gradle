@@ -8,15 +8,17 @@ apply plugin: 'jacoco'
 
 dependencies {
     compile project(":fast-base")
-    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0-b01'
-    // http://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-    compile group: 'com.sun.jersey', name: 'jersey-bundle', version: '1.19.1'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+    compile group: 'com.sun.jersey', name: 'jersey-bundle', version: '1.19.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
-    // https://mvnrepository.com/artifact/com.alibaba/fastjson
     compile group: 'com.alibaba', name: 'fastjson', version: '1.2.12'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+    compile group: 'org.springframework', name: 'spring-web', version: '4.2.6.RELEASE'
+    compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+    compile group: 'org.apache.poi', name: 'poi', version: '3.14'
+    compile group: 'com.belerweb', name: 'pinyin4j', version: '2.5.1'
 
     // https://mvnrepository.com/artifact/org.mockito/mockito-all
     compile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'

@@ -8,6 +8,7 @@
     <body>
     <!-- PAGE -->
     <section id="page">
+    [#include 'base/macro.ftl'/]
     [#include 'base/header.html'/]
     [#include 'base/nav.html'/]
     [#include 'base/content_header.html'/]
@@ -40,8 +41,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    [#if insuredPersons?? && insuredPersons?size>0]
-                        [#list insuredPersons as person]
+                    [#if insuredPersons.content?? && insuredPersons.content?size>0]
+                        [#list insuredPersons.content as person]
                         <tr value="${person.id}">
                             <td data-attr="id" data-attr-value="${person.id}">${person_index+1}</td>
                             <td data-attr="name" data-attr-value="${person.name}">${person.name}</td>
@@ -73,7 +74,9 @@
                     </tr>
                     [/#if]
                     </tbody>
+
                 </table>
+            [@pagination totalPages="${insuredPersons.totalPages}" number="${insuredPersons.number}" first="${insuredPersons.first?string('true', 'false')}" last="${insuredPersons.last?string('true', 'false')}"/]
             </div>
         </div>
         <!-- /BOX -->

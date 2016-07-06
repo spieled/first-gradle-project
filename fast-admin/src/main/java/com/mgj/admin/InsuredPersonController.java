@@ -1,5 +1,7 @@
 package com.mgj.admin;
 
+import com.alibaba.fastjson.JSON;
+import com.mgj.admin.base.BaseController;
 import com.mgj.base.Constants;
 import com.mgj.base.socialinsurance.InsuredPerson;
 import com.mgj.core.insured.InsuredService;
@@ -7,6 +9,7 @@ import com.mgj.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("persons")
-public class InsuredPersonController {
+public class InsuredPersonController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(InsuredPersonController.class);
 
     @Autowired
@@ -30,7 +33,8 @@ public class InsuredPersonController {
     public ModelAndView insuredPerson(HttpServletRequest request, ModelAndView mv) {
         mv.setViewName("insured-person");
         String username = request.getRemoteUser();
-        Iterable<InsuredPerson> insuredPersons = insuredService.findByUsername(username);
+        Page<InsuredPerson> insuredPersons = insuredService.findByUsername(username, getPageable(request));
+        logger.info(JSON.toJSONString(insuredPersons));
         mv.addObject("insuredPersons", insuredPersons);
         return mv;
     }

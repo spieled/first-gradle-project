@@ -51,6 +51,40 @@
             $('#logoutForm').trigger('submit');
         })
 
+
+        $('.pagination').find('li').on('click', function () {
+            var li = $(this);
+            if ($(li).hasClass('disabled') || $(li).hasClass('active')) {
+                return false;
+            }
+            var page = $(li).find('a').attr('data-page-number');
+            var url = window.location.href;
+            var search = window.location.search;
+            // 如果url中不包含page=n，那么添加page=page参数
+            // 如果url中包含page=n，那么更新page=page参数
+
+            var urlPage = $.getUrlVars()["page"];
+            if (urlPage) {
+                var reg = new RegExp("[\\?|&]page=\\d+");
+                var r = search.match(reg);
+                console.log(r);
+                var correct = r[0].replace(urlPage, page);
+                search = search.replace(reg, correct);
+                var href = window.location.origin+window.location.pathname+search;
+                window.location.href = href;
+
+            } else {
+                if (url.indexOf("?") > 0) {
+                    window.location.href = url + "&page="+page;
+                } else {
+                    window.location.href = url + "?page="+page;
+                }
+
+            }
+
+        });
+
+
     });
 </script>
 <!-- /JAVASCRIPTS -->
