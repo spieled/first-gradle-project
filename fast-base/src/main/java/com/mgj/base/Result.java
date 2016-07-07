@@ -1,4 +1,4 @@
-package com.mgj.admin;
+package com.mgj.base;
 
 /**
  * REST接口的返回结果对象

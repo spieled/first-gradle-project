@@ -1,10 +1,12 @@
 package com.mgj.admin;
 
+import com.mgj.admin.config.CustomJdbcUserDetailsManager;
 import com.mgj.admin.vo.GroupVo;
 import com.mgj.admin.vo.UserVo;
 import com.mgj.base.Constants;
+import com.mgj.base.Result;
 import com.mgj.util.Util;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import net.bull.javamelody.MonitoredWithSpring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +14,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yanqu on 2016/6/26.
  */
 @RestController
+@MonitoredWithSpring
 public class AuthController {
 
     public static final Logger logger = LoggerFactory.getLogger(AuthController.class);

@@ -1,4 +1,4 @@
-package com.mgj.admin;
+package com.mgj.admin.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

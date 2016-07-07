@@ -1,14 +1,14 @@
 package com.mgj.admin;
 
+import com.mgj.admin.config.CustomJdbcUserDetailsManager;
 import com.mgj.base.Constants;
-import com.mgj.util.LuosimaoSendUtil;
+import com.mgj.base.Result;
 import com.mgj.util.Util;
+import net.bull.javamelody.MonitoredWithSpring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @RestController
 @RequestMapping("passport")
+@MonitoredWithSpring
 public class PassportController {
 
     private Logger logger = LoggerFactory.getLogger(PassportController.class);

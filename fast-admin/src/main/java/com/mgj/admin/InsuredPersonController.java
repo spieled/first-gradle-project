@@ -3,11 +3,13 @@ package com.mgj.admin;
 import com.alibaba.fastjson.JSON;
 import com.mgj.admin.base.BaseController;
 import com.mgj.base.Constants;
+import com.mgj.base.Result;
 import com.mgj.base.socialinsurance.InsuredPerson;
 import com.mgj.core.insured.InsuredService;
 import com.mgj.util.IdCardUtil;
 import com.mgj.util.Region;
 import com.mgj.util.Util;
+import net.bull.javamelody.MonitoredWithSpring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("persons")
+@MonitoredWithSpring
 public class InsuredPersonController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(InsuredPersonController.class);
 

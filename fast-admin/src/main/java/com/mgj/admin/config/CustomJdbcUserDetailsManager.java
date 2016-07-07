@@ -1,9 +1,8 @@
-package com.mgj.admin;
+package com.mgj.admin.config;
 
 import com.mgj.admin.vo.UserVo;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
