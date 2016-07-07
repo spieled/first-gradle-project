@@ -1,4 +1,6 @@
 [#ftl]
+[#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] /]
+[#assign currentUsername][@security.authentication property="principal.username"/][/#assign]
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,9 +57,12 @@
                             <td data-attr="type" data-attr-value="${person.type}">[#if person.type="CITY"]城镇[#elseif person.type="TOWN"]农村[/#if]</td>
                             <td data-attr="idNumber" data-attr-value="${person.idNumber}">${person.idNumber}</td>
                             <td data-attr="companyId" data-attr-value="${person.companyId}">
-                                [#if person.companyId=0]无
+                                [@companyDirective id="${person.companyId}"]
+                                    ${name}
+                                [/@companyDirective]
+                                [#--[#if person.companyId=0]无
                                 [#elseif person.companyId=1]民工加
-                                [/#if]
+                                [/#if]--]
                             </td>
                             <td data-attr="cityName" data-attr-value="${person.cityName}">${person.cityName}</td>
                             <td data-attr="insured" data-attr-value="${person.insured?string}">${person.insured?string("已参保","从未参保")}</td>
@@ -123,7 +128,12 @@
                                 <div class="col-sm-9">
                                     <select name="companyId" class="form-control">
                                         <option value="0">无</option>
-                                        <option value="1">民工加</option>
+                                        [#--<option value="1">民工加</option>--]
+                                        [@companyDirective username="${currentUsername?string}"]
+                                        [#list companies as com]
+                                        <option value="${com.id}">${com.name}</option>
+                                        [/#list]
+                                        [/@companyDirective]
                                     </select>
                                 </div>
                             </div>
@@ -192,7 +202,12 @@
                                 <div class="col-sm-9">
                                     <select name="companyId" class="form-control">
                                         <option value="0">无</option>
-                                        <option value="1">民工加</option>
+                                        [#--<option value="1">民工加</option>--]
+                                        [@companyDirective username="${currentUsername?string}"]
+                                            [#list companies as com]
+                                                <option value="${com.id}">${com.name}</option>
+                                            [/#list]
+                                        [/@companyDirective]
                                     </select>
                                 </div>
                             </div>
