@@ -229,8 +229,6 @@
         </div>
     </div>
 
-    [@companyDirective username="root"/]
-
     [#include 'base/footer.html'/]
     <script>
 

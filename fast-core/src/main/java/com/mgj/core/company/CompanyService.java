@@ -5,6 +5,7 @@ import com.mgj.core.base.BaseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,5 +19,10 @@ public class CompanyService extends BaseService<CompanyDao, Company, Long> {
     }
     public Page<Company> findByUsername(String username, Pageable pageable) {
         return dao.findByUsername(username, pageable);
+    }
+
+    @Transactional
+    public void updateStatus(long id, Company.Status status) {
+        dao.updateStatus(id, status);
     }
 }

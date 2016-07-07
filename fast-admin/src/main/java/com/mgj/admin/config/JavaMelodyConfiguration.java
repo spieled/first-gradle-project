@@ -18,7 +18,7 @@ import javax.servlet.ServletException;
  * @author speralta, evernat
  */
 @Configuration
-@ImportResource("classpath:net/bull/javamelody/monitoring-spring.xml")
+@ImportResource("classpath:net/bull/javamelody/monitoring-spring-aspectj.xml")
 @SuppressWarnings("javadoc")
 public class JavaMelodyConfiguration implements ServletContextInitializer {
     @Override

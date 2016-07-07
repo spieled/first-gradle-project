@@ -1,6 +1,5 @@
 package com.mgj.admin;
 
-import com.alibaba.fastjson.JSON;
 import com.mgj.admin.base.BaseController;
 import com.mgj.base.Constants;
 import com.mgj.base.Result;
@@ -37,7 +36,6 @@ public class CompanyController extends BaseController {
         mv.setViewName("companies");
         String username = request.getRemoteUser();
         Page<Company> pageData = companyService.findByUsername(username, getPageable(request));
-        logger.info(JSON.toJSONString(pageData));
         mv.addObject("pageData", pageData);
         return mv;
     }

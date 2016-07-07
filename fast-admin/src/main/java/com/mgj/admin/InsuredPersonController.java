@@ -1,6 +1,5 @@
 package com.mgj.admin;
 
-import com.alibaba.fastjson.JSON;
 import com.mgj.admin.base.BaseController;
 import com.mgj.base.Constants;
 import com.mgj.base.Result;
@@ -36,10 +35,9 @@ public class InsuredPersonController extends BaseController {
 
     @RequestMapping("")
     public ModelAndView insuredPerson(HttpServletRequest request, ModelAndView mv) {
-        mv.setViewName("insured-person");
+        mv.setViewName("persons");
         String username = request.getRemoteUser();
         Page<InsuredPerson> pageData = insuredService.findByUsername(username, getPageable(request));
-        logger.info(JSON.toJSONString(pageData));
         mv.addObject("pageData", pageData);
         return mv;
     }
