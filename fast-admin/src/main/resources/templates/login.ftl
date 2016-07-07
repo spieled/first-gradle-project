@@ -215,7 +215,9 @@
 		jQuery(document).ready(function() {		
 			App.setPage("login");  //Set current page
 			App.init(); //Initialise plugins and elements
-		});
+            // focus login-form-username
+			$('#loginUsername').focus();
+        });
 	</script>
 	<script type="text/javascript">
 		function swapScreen(id) {

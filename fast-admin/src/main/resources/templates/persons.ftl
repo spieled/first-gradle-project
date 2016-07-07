@@ -11,7 +11,7 @@
     <!-- PAGE -->
     <section id="page">
     [#include 'base/macro.ftl'/]
-    [#include 'base/header.html'/]
+    [#include 'base/header.ftl'/]
     [#include 'base/nav.html'/]
     [#include 'base/content_header.html'/]
 

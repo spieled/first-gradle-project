@@ -1,4 +1,6 @@
 [#ftl]
+[#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] /]
+[#assign currentUsername][@security.authentication property="principal.username"/][/#assign]
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +11,7 @@
     <!-- PAGE -->
     <section id="page">
     [#include '../base/macro.ftl'/]
-    [#include '../base/header.html'/]
+    [#include '../base/header.ftl'/]
     [#include '../base/nav.html'/]
     [#include '../base/content_header.html'/]
 

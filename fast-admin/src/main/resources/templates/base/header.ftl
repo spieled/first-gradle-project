@@ -1,4 +1,4 @@
-﻿	<!-- HEADER -->
+﻿<!-- HEADER -->
 	<header class="navbar clearfix navbar-fixed-top" id="header">
 		<div class="container">
 				<div class="navbar-brand">
@@ -20,11 +20,11 @@
 					<li class="dropdown user" id="header-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img alt="" src="/img/avatars/avatar3.jpg" />
-							<span class="username">超级管理员</span>
+							<span class="username">${currentUsername}</span>
 							<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fa fa-user"></i>个人中心</a></li>
+							<li><a href="/profile"><i class="fa fa-user"></i>个人中心</a></li>
 							<li><a href="javascript:;" id="logoutBtn"><i class="fa fa-power-off"></i>退出</a></li>
 						</ul>
 					</li>

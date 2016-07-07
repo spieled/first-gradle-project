@@ -22,6 +22,11 @@ public class Profile extends BaseEntity {
     @Column(name = "user_id")
     private long userId;
     /**
+     * 用户名
+     */
+    @Column(name = "username")
+    private String username;
+    /**
      * 用户头像URL地址
      */
     @Column(name = "avatar")
@@ -31,6 +36,11 @@ public class Profile extends BaseEntity {
      */
     @Column(name = "nick_name")
     private String nickName;
+    /**
+     * 真实姓名
+     */
+    @Column(name = "real_name")
+    private String realName;
     /**
      * 地址
      */
@@ -172,5 +182,21 @@ public class Profile extends BaseEntity {
 
     public void setRealAuthed(boolean realAuthed) {
         this.realAuthed = realAuthed;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }
