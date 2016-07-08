@@ -40,6 +40,11 @@ public class Order extends BaseEntity {
     @Column(name = "user_id")
     private String userId;
     /**
+     * 用户名
+     */
+    @Column(name = "username")
+    private String username;
+    /**
      * 订单号
      */
     @Column(name = "serial_number")
@@ -125,5 +130,13 @@ public class Order extends BaseEntity {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

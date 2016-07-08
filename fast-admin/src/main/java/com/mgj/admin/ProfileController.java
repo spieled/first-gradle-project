@@ -3,8 +3,9 @@ package com.mgj.admin;
 import com.mgj.admin.base.BaseController;
 import com.mgj.base.Constants;
 import com.mgj.base.Result;
+import com.mgj.base.socialinsurance.Account;
 import com.mgj.base.socialinsurance.Profile;
-import com.mgj.core.user.ProfileService;
+import com.mgj.core.user.UserService;
 import com.mgj.util.Util;
 import net.bull.javamelody.MonitoredWithSpring;
 import org.slf4j.Logger;
@@ -27,20 +28,13 @@ public class ProfileController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
 
     @Autowired
-    private ProfileService profileService;
+    private UserService userService;
 
     @RequestMapping("")
     public ModelAndView insuredPerson(HttpServletRequest request, ModelAndView mv) {
         mv.setViewName("profile");
         String username = request.getRemoteUser();
-        List<Profile> profiles = profileService.findByUsername(username);
-        Profile profile = null;
-        if (profiles.isEmpty()) {
-            profile = new Profile();
-            profile.setUsername(username);
-        } else {
-            profile = profiles.get(0);
-        }
+        Profile profile = userService.findProfileByUsername(username);
         mv.addObject("profile", profile);
         return mv;
     }
@@ -57,25 +51,34 @@ public class ProfileController extends BaseController {
             return Result.fail(String.format("%s不是合法的邮箱", profile.getEmail()), Constants.EMPTY);
         }
         if (profile.getId() <= 0) {
-            profileService.create(profile);
+            userService.updateProfile(profile);
             return Result.ok();
         }
-        Profile dbProfile = profileService.findOne(profile.getId());
+        Profile dbProfile = userService.findProfileById(profile.getId());
         dbProfile.setNickName(profile.getNickName());
         dbProfile.setRealName(profile.getRealName());
         dbProfile.setAddress(profile.getAddress());
         dbProfile.setEmail(profile.getEmail());
         dbProfile.setMobile(profile.getMobile());
         dbProfile.setGender(profile.getGender());
-        profileService.create(dbProfile);
+        userService.updateProfile(dbProfile);
 
         return Result.ok();
     }
 
     @RequestMapping("detail")
     public Result editProfile(HttpServletRequest request, Long id) {
-        Profile profile = profileService.findOne(id);
+        Profile profile = userService.findProfileById(id);
         return Result.ok(Constants.EMPTY, Util.singleList(profile));
     }
+
+    @RequestMapping("accounts")
+    public ModelAndView accounts(HttpServletRequest request, ModelAndView mv) {
+        mv.setViewName("accounts");
+        List<Account> accounts = userService.findAccountByUsername(request.getRemoteUser());
+        mv.addObject("accounts", accounts);
+        return mv;
+    }
+
 
 }

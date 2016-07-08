@@ -19,6 +19,11 @@ public class OrderItem extends BaseEntity {
     @Column(name = "user_id")
     private long userId;
     /**
+     * 用户名
+     */
+    @Column(name = "username")
+    private String username;
+    /**
      * 订单ID
      */
     @Column(name = "order_id")
@@ -190,6 +195,19 @@ public class OrderItem extends BaseEntity {
      */
     @Column(name = "total")
     private BigDecimal total = BigDecimal.ZERO;
+    /**
+     * 总比例
+     */
+    @Column(name = "total_percent")
+    private BigDecimal totalPercent = BigDecimal.ZERO;
+
+    public BigDecimal getTotalPercent() {
+        return totalPercent;
+    }
+
+    public void setTotalPercent(BigDecimal totalPercent) {
+        this.totalPercent = totalPercent;
+    }
 
     public long getUserId() {
         return userId;
@@ -461,5 +479,51 @@ public class OrderItem extends BaseEntity {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public static OrderItem calc(BigDecimal insureBase, InsurePolicy policy) {
+        OrderItem instance = new OrderItem();
+        instance.endowmentPercentCompany = policy.getEndowmentPercentCompany();
+        instance.endowmentPercentPerson = policy.getEndowmentPercentPerson();
+        instance.medicalPercentCompany = policy.getMedicalPercentCompany();
+        instance.medicalPercentPerson = policy.getMedicalPercentPerson();
+        instance.unemployedPercentCompany = policy.getUnemployedPercentCompany();
+        instance.unemployedPercentPerson = policy.getUnemployedPercentPerson();
+        instance.maternityPercentCompany = policy.getMaternityPercentCompany();
+        instance.maternityPercentPerson = policy.getMaternityPercentPerson();
+        instance.injuryPercentCompany = policy.getInjuryPercentCompany();
+        instance.injuryPercentPerson = policy.getInjuryPercentPerson();
+        instance.sickPercentCompany = policy.getSickPercentCompany();
+        instance.sickPercentPerson = policy.getSickPercentPerson();
+        instance.totalPercentCompany = policy.getTotalPercentCompany();
+        instance.totalPercentPerson = policy.getTotalPercentPerson();
+        instance.totalPercent = policy.getTotalPercent();
+
+        instance.endowmentCompany = insureBase.multiply(instance.getEndowmentPercentCompany());
+        instance.endowmentPerson = insureBase.multiply(instance.getEndowmentPercentPerson());
+        instance.medicalCompany = insureBase.multiply(instance.getMedicalPercentCompany());
+        instance.medicalPerson = insureBase.multiply(instance.getMedicalPercentPerson());
+        instance.unemployedCompany = insureBase.multiply(instance.getUnemployedPercentCompany());
+        instance.unemployedPerson = insureBase.multiply(instance.getUnemployedPercentPerson());
+        instance.maternityCompany = insureBase.multiply(instance.getMaternityPercentCompany());
+        instance.maternityPerson = insureBase.multiply(instance.getMaternityPercentPerson());
+        instance.injuryCompany = insureBase.multiply(instance.getInjuryPercentCompany());
+        instance.injuryPerson = insureBase.multiply(instance.getInjuryPercentPerson());
+        instance.sickCompany = insureBase.multiply(instance.getSickPercentCompany());
+        instance.sickPerson = insureBase.multiply(instance.getSickPercentPerson());
+        instance.totalCompany = insureBase.multiply(instance.getTotalPercentCompany());
+        instance.totalPerson = insureBase.multiply(instance.getTotalPercentPerson());
+        instance.total = instance.totalCompany.add(instance.totalPerson);
+
+        return instance;
+
     }
 }

@@ -126,7 +126,7 @@ public class Util {
     }
 
     public static final List<Object> singleList(Object object) {
-        ArrayList list = new ArrayList();
+        List<Object> list = new ArrayList();
         list.add(object);
         return list;
     }
@@ -933,6 +933,13 @@ public class Util {
         /**
          * 将字符串解析成布尔型，如果解析失败就返回def。
          */
+        public static boolean parseBoolean(HttpServletRequest request, String str, boolean def) {
+            return parseBoolean(Util.parseString(request, str, Constants.EMPTY), def);
+        }
+
+        /**
+         * 将字符串解析成布尔型，如果解析失败就返回def。
+         */
         public static boolean parseBoolean(String str, boolean def) {
             if (!Util.hasText(str)) {
                 return def;
@@ -976,6 +983,17 @@ public class Util {
                 return def;
             }
         }
+
+    /**
+     * 将字符串解析成数值型，如果解析失败就返回def。
+     */
+    public static BigDecimal parseBigDecimal(HttpServletRequest request, String str, BigDecimal def) {
+        try {
+            return new BigDecimal(request.getParameter(str));
+        } catch (Exception e) {
+            return def;
+        }
+    }
 
         /**
          * 把字符串解析成枚举类型

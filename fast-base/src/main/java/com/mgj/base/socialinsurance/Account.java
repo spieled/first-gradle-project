@@ -37,6 +37,16 @@ public class Account extends BaseEntity {
     @Column(name = "user_id")
     private long userId;
     /**
+     * 用户名
+     */
+    @Column(name = "username")
+    private String username;
+    /**
+     * 企业ID
+     */
+    @Column(name = "company_id")
+    private long companyId;
+    /**
      * 账户类型
      */
     @Column(name = "type")
@@ -83,5 +93,21 @@ public class Account extends BaseEntity {
 
     public void setFrozenAmount(BigDecimal frozenAmount) {
         this.frozenAmount = frozenAmount;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
     }
 }
