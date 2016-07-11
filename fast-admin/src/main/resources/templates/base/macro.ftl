@@ -3,6 +3,7 @@
 "sort":[{"ascending":true,"direction":"ASC","ignoreCase":false,"nullHandling":"NATIVE","property":"id"}],
 "totalElements":1,"totalPages":1--]
 [#macro pagination totalPages=1 number=0 first=true last=true]
+    [#if totalPages?number>0]
     [#assign start][#if number?number-1 >0]${number?number-1}[#else]1[/#if][/#assign]
     [#assign end][#if number?number+3 >totalPages?number]${totalPages?number}[#else]${number?number+3}[/#if][/#assign]
 
@@ -21,4 +22,5 @@
             <li [#if last=="true"]class="disabled" [/#if]><a href="javascript:;" data-page-number="${totalPages?number-1}">尾页</a></li>
         </ul>
     </div>
+    [/#if]
 [/#macro]

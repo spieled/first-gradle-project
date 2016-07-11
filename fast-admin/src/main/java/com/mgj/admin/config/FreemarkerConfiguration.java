@@ -1,6 +1,8 @@
 package com.mgj.admin.config;
 
 import com.mgj.admin.directive.CompanyDirective;
+import com.mgj.admin.directive.EnumDirective;
+import com.mgj.admin.directive.NameDirective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +19,10 @@ public class FreemarkerConfiguration extends FreeMarkerAutoConfiguration.FreeMar
 
     @Autowired
     private CompanyDirective companyDirective;
+    @Autowired
+    private EnumDirective enumDirective;
+    @Autowired
+    private NameDirective nameDirective;
 
     private static final Map<String, Object> VARIABLES = new HashMap<>();
 
@@ -28,6 +34,8 @@ public class FreemarkerConfiguration extends FreeMarkerAutoConfiguration.FreeMar
     }
     private void initVariables() {
         VARIABLES.put("companyDirective", companyDirective);
+        VARIABLES.put("name", nameDirective);
+        VARIABLES.put("enum", enumDirective);
     }
 
 //    @Bean

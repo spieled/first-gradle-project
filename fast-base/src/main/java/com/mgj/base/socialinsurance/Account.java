@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class Account extends BaseEntity {
     private static final long serialVersionUID = 7986892604187641226L;
 
-    enum Type implements BaseEnum {
+    public enum Type implements BaseEnum {
         PERSONEL("个人"),
         COMPANY("企业")
         ;
@@ -41,6 +41,11 @@ public class Account extends BaseEntity {
      */
     @Column(name = "username")
     private String username;
+    /**
+     * 账户名称
+     */
+    @Column(name = "name")
+    private String name;
     /**
      * 企业ID
      */
@@ -109,5 +114,13 @@ public class Account extends BaseEntity {
 
     public void setCompanyId(long companyId) {
         this.companyId = companyId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

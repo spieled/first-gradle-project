@@ -20,7 +20,7 @@ public class OfflinePayRecord extends BaseEntity {
     private static final long serialVersionUID = -8224135770834484150L;
 
     // 审核状态（0：未审核，1：审核不通过，2：审核通过）
-    enum Status implements BaseEnum {
+    public enum Status implements BaseEnum {
         NEW("未审核"),
         CHECK_FAILED("审核不通过"),
         CHECK_SUCCESS("审核通过")
@@ -41,6 +41,11 @@ public class OfflinePayRecord extends BaseEntity {
      */
     @Column(name = "user_id")
     private long userId;
+    /**
+     * 用户名
+     */
+    @Column(name = "username")
+    private String username;
     /**
      * 汇款金额
      */
@@ -89,6 +94,14 @@ public class OfflinePayRecord extends BaseEntity {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public BigDecimal getAmount() {

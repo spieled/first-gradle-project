@@ -19,7 +19,7 @@ public class AccountRecord extends BaseEntity {
     private static final long serialVersionUID = -2350879273881339807L;
 
     // 变更类型（1：微信支付，2：支付宝支付，3：银联支付，4：线下汇款）
-    enum Type implements BaseEnum {
+    public enum Type implements BaseEnum {
         UNKNOWN("保密"),
         WEIXIN("微信支付"),
         ALIPAY("支付宝支付"),
@@ -37,6 +37,11 @@ public class AccountRecord extends BaseEntity {
         }
     }
 
+    /**
+     * 用户名
+     */
+    @Column(name = "username")
+    private String username;
     /**
      * 账户ID
      */
@@ -89,5 +94,13 @@ public class AccountRecord extends BaseEntity {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

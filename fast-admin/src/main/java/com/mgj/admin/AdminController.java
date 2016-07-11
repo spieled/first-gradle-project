@@ -5,8 +5,10 @@ import com.mgj.base.Constants;
 import com.mgj.base.Result;
 import com.mgj.base.socialinsurance.Company;
 import com.mgj.base.socialinsurance.InsuredPerson;
+import com.mgj.base.socialinsurance.OfflinePayRecord;
 import com.mgj.core.company.CompanyService;
 import com.mgj.core.insured.InsuredService;
+import com.mgj.core.user.UserService;
 import net.bull.javamelody.MonitoredWithSpring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,8 @@ public class AdminController extends BaseController {
     private CompanyService companyService;
     @Autowired
     private InsuredService insuredService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("persons")
     public ModelAndView persons(HttpServletRequest request, ModelAndView mv) {
@@ -68,7 +72,25 @@ public class AdminController extends BaseController {
             return Result.fail("更新参保人审核状态失败", Constants.EMPTY);
         }
         return Result.ok();
+    }
 
+    @RequestMapping("offlinePayRecord/check")
+    public Result checkOfflinePayRecord(HttpServletRequest request, long id, OfflinePayRecord.Status status) {
+        try {
+            userService.updateOfflinePayrecordStatus(id, status);
+        } catch (Exception e) {
+            logger.error("更新线下充值记录审核状态失败", e);
+            return Result.fail("更新线下充值记录审核状态失败", Constants.EMPTY);
+        }
+        return Result.ok();
+    }
+
+    @RequestMapping("tickets")
+    public ModelAndView tickets(HttpServletRequest request, ModelAndView mv) {
+        mv.setViewName("admin/tickets");
+        Page<OfflinePayRecord> pageData = userService.findOfflinePayRecords(getPageable(request));
+        mv.addObject("pageData", pageData);
+        return mv;
     }
 
 

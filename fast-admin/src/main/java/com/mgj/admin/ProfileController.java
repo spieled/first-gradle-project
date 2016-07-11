@@ -4,6 +4,8 @@ import com.mgj.admin.base.BaseController;
 import com.mgj.base.Constants;
 import com.mgj.base.Result;
 import com.mgj.base.socialinsurance.Account;
+import com.mgj.base.socialinsurance.AccountRecord;
+import com.mgj.base.socialinsurance.OfflinePayRecord;
 import com.mgj.base.socialinsurance.Profile;
 import com.mgj.core.user.UserService;
 import com.mgj.util.Util;
@@ -11,11 +13,13 @@ import net.bull.javamelody.MonitoredWithSpring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,11 +78,63 @@ public class ProfileController extends BaseController {
 
     @RequestMapping("accounts")
     public ModelAndView accounts(HttpServletRequest request, ModelAndView mv) {
-        mv.setViewName("accounts");
-        List<Account> accounts = userService.findAccountByUsername(request.getRemoteUser());
-        mv.addObject("accounts", accounts);
+        String action = Util.parseString(request, "action", "accounts");
+        switch (action) {
+            case "accounts":
+                mv.setViewName("accounts");
+                List<Account> accounts = userService.findAccountByUsername(request.getRemoteUser());
+                mv.addObject("accounts", accounts);
+                break;
+            case "offlines":
+                mv.setViewName("offlines");
+                long accountId =  Util.parseLong(Util.parseString(request, "id", Constants.EMPTY), 0L);
+                Account account = userService.findAccountById(accountId);
+                Page<OfflinePayRecord> pageData = userService.findOfflinePayRecords(accountId, getPageable(request));
+                mv.addObject("account", account);
+                mv.addObject("pageData", pageData);
+                break;
+            case "records":
+                mv.setViewName("records");
+                long accountId2 =  Util.parseLong(Util.parseString(request, "id", Constants.EMPTY), 0L);
+                Account account2 = userService.findAccountById(accountId2);
+                Page<AccountRecord> pageData2 = userService.findAccountRecords(accountId2, getPageable(request));
+                mv.addObject("account", account2);
+                mv.addObject("pageData", pageData2);
+                break;
+            default:
+                break;
+        }
+
         return mv;
     }
+
+    @RequestMapping("uploadTicket")
+    public Result uploadTicket(HttpServletRequest request, OfflinePayRecord payRecord) {
+        payRecord.setUsername(request.getRemoteUser());
+        userService.createOfflinePayRecord(payRecord);
+        return Result.ok();
+    }
+
+    @RequestMapping("updateTicket")
+    public Result updateTicket(HttpServletRequest request, OfflinePayRecord payRecord) {
+        OfflinePayRecord dbRecord = userService.findOfflinePayRecordById(payRecord.getId());
+        dbRecord.setBank(payRecord.getBank());
+        dbRecord.setAmount(payRecord.getAmount());
+        dbRecord.setCardNumber(payRecord.getCardNumber());
+        dbRecord.setSerialNumber(payRecord.getSerialNumber());
+        dbRecord.setTicket(payRecord.getTicket());
+        dbRecord.setUpdateTime(new Date());
+        dbRecord.setStatus(OfflinePayRecord.Status.NEW);
+        userService.createOfflinePayRecord(dbRecord);
+        return Result.ok();
+    }
+
+    @RequestMapping("deleteTicket")
+    public Result deleteTicket(HttpServletRequest request, long id) {
+        userService.deleteOfflinePayRecord(id);
+        return Result.ok();
+    }
+
 
 
 }

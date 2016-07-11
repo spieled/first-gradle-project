@@ -19,7 +19,7 @@ public class WithdrawRecord extends BaseEntity {
     private static final long serialVersionUID = 2750229415661498539L;
 
     // 审核状态（0：未审核，1：审核不通过，2：审核通过）
-    enum Status implements BaseEnum {
+    public enum Status implements BaseEnum {
         NEW("未审核"),
         CHECK_FAILED("审核不通过"),
         CHECK_SUCCESS("审核通过"),

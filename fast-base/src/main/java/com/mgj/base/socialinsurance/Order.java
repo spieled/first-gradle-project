@@ -18,7 +18,7 @@ public class Order extends BaseEntity {
     private static final long serialVersionUID = -5497951034778555855L;
 
     // 订单状态（0：待支付，1：已取消，2：已支付）
-    enum Status implements BaseEnum {
+    public enum Status implements BaseEnum {
         WAIT_PAY("待支付"),
         CANCELED("已取消"),
         PAYED("已支付")

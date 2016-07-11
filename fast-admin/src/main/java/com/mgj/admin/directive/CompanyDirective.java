@@ -33,7 +33,7 @@ public class CompanyDirective implements TemplateDirectiveModel {
                 String companyName = companyService.findOne(id).getName();
                 env.setVariable("name", wrapper.wrap(companyName));
             } catch (Exception e) {
-                logger.error("get company name failed", e);
+                logger.error("get company name failed, id=" + idStr);
                 env.setVariable("name", wrapper.wrap("无"));
             }
         } else {
