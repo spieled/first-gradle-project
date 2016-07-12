@@ -21,8 +21,8 @@ import javax.ws.rs.core.MediaType;
 public class LuosimaoSendUtil {
 	private static final String SEND_URL = "http://sms-api.luosimao.com/v1/send.json";// 单发url
 	private static final String BATCH_SEND_URL = "http://sms-api.luosimao.com/v1/send_batch.json";// 群发url
-	private static final String USERNAME = "api";// 用户名
-	private static final String PASSWORD = "key-b69a84d17966d446faa936f9cc387ddd";// 密码
+	private static final String USERNAME = "";// 用户名
+	private static final String PASSWORD = "";// 密码
 	private static final boolean isSend = true;
 
 	/*public static void main(String[] args) {
