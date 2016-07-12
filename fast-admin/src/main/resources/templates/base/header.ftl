@@ -19,7 +19,7 @@
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown user" id="header-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img alt="" src="/img/avatars/avatar3.jpg" />
+							<img alt="" src="${currentAvatar}" />
 							<span class="username">${currentUsername}</span>
 							<i class="fa fa-angle-down"></i>
 						</a>
@@ -31,7 +31,7 @@
 					<!-- END USER LOGIN DROPDOWN -->
 				</ul>
 			<form action="/logout" method="post" id="logoutForm">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<input type="hidden" id="csrfToken" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</form>
 				<!-- END TOP NAVIGATION MENU -->
 		</div>

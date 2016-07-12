@@ -11,9 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by yanqu on 2016/6/29.
@@ -38,6 +43,29 @@ public class CommonController extends BaseController {
             logger.error("计算社保出差", e);
             return Result.fail("计算社保出差", Constants.EMPTY);
         }
+    }
+
+    // @CrossOrigin(origins = "*")
+    @RequestMapping("upload")
+    public Result upload(HttpServletRequest request) throws IOException {
+        try {
+            BASE64Decoder decoder = new BASE64Decoder();
+            String base64 = request.getParameter("file");
+            String originalFilename = request.getParameter("name");
+            byte[] bytes = decoder.decodeBuffer(base64);
+            int index = originalFilename.lastIndexOf(".");
+            String prefix = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+            String filename = prefix + originalFilename.substring(index, originalFilename.length());
+            String realPath = request.getServletContext().getRealPath("/");
+            String username = request.getRemoteUser();
+            File f = new File(realPath + File.separator + username + File.separator + filename);
+            org.apache.commons.io.FileUtils.writeByteArrayToFile(f, bytes);
+            logger.info("保存图片成功" + f.getPath());
+            return Result.ok(Constants.EMPTY, "/" + username + "/" + filename);
+        } catch (Exception e) {
+            logger.error("保存上次图片失败", e);
+        }
+        return Result.fail("保存上次图片失败", Constants.EMPTY);
     }
 
 }

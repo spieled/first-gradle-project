@@ -1,19 +1,20 @@
 [#ftl]
 [#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] /]
 [#assign currentUsername][@security.authentication property="principal.username"/][/#assign]
+[#assign currentAvatar][@name type='avatar' id='${currentUsername}']${display!'/img/avatars/avatar3.jpg'}[/@name][/#assign]
 <!DOCTYPE html>
 <html>
     <head>
         <title>快用工 | 个人信息</title>
-        [#include 'base/meta.html'/]
+        [#include '../base/meta.html'/]
     </head>
     <body>
     <!-- PAGE -->
     <section id="page">
-    [#include 'base/macro.ftl'/]
-    [#include 'base/header.ftl'/]
-    [#include 'base/nav.html'/]
-    [#include 'base/content_header.html'/]
+    [#include '../base/macro.ftl'/]
+    [#include '../base/header.ftl'/]
+    [#include '../base/nav.html'/]
+    [#include '../base/content_header.html'/]
 
         <!-- BOX -->
         <div class="box border green">
@@ -78,14 +79,13 @@
         </div>
         <!-- /BOX -->
 
-    [#include 'base/content_footer.html'/]
+    [#include '../base/content_footer.html'/]
     </section>
 
-    [#include 'base/footer.html'/]
+    [#include '../base/footer.html'/]
     <script>
 
         $(function () {
-
             /* ajax 提交表单 */
             $('#profileForm').ajaxForm({
                 success: function (response) {
@@ -96,8 +96,6 @@
                     }
                 }
             });
-
-
         })
     </script>
     </body>

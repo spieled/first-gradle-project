@@ -1,6 +1,7 @@
 package com.mgj.admin;
 
 import com.mgj.admin.base.BaseController;
+import com.mgj.admin.config.CustomJdbcUserDetailsManager;
 import com.mgj.base.Constants;
 import com.mgj.base.Result;
 import com.mgj.base.socialinsurance.Account;
@@ -33,10 +34,42 @@ public class ProfileController extends BaseController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CustomJdbcUserDetailsManager userDetailsManager;
 
     @RequestMapping("")
     public ModelAndView insuredPerson(HttpServletRequest request, ModelAndView mv) {
-        mv.setViewName("profile");
+        mv.setViewName("profile/profile");
+        String username = request.getRemoteUser();
+        Profile profile = userService.findProfileByUsername(username);
+        mv.addObject("profile", profile);
+        return mv;
+    }
+
+    /**
+     * 头像
+     * @param request
+     * @param mv
+     * @return
+     */
+    @RequestMapping("avatar")
+    public ModelAndView avatar(HttpServletRequest request, ModelAndView mv) {
+        mv.setViewName("profile/avatar");
+        String username = request.getRemoteUser();
+        Profile profile = userService.findProfileByUsername(username);
+        mv.addObject("profile", profile);
+        return mv;
+    }
+
+    /**
+     * 实名认证
+     * @param request
+     * @param mv
+     * @return
+     */
+    @RequestMapping("auth")
+    public ModelAndView auth(HttpServletRequest request, ModelAndView mv) {
+        mv.setViewName("profile/auth");
         String username = request.getRemoteUser();
         Profile profile = userService.findProfileByUsername(username);
         mv.addObject("profile", profile);
@@ -132,6 +165,25 @@ public class ProfileController extends BaseController {
     @RequestMapping("deleteTicket")
     public Result deleteTicket(HttpServletRequest request, long id) {
         userService.deleteOfflinePayRecord(id);
+        return Result.ok();
+    }
+
+    @RequestMapping("avatar/update")
+    public Result updateAvatar(HttpServletRequest request) {
+        String avatar = Util.parseString(request, "avatar", "");
+        userService.updateAvatar(request.getRemoteUser(), avatar);
+        return Result.ok();
+    }
+
+    @RequestMapping("password/update")
+    public Result updatePassword(HttpServletRequest request, String oldPassword, String newPassword) {
+        userDetailsManager.changePassword(oldPassword, newPassword);
+        return Result.ok();
+    }
+
+    @RequestMapping("idPic/update")
+    public Result updateIdPic(HttpServletRequest request, String idPositive, String idNegtive) {
+        userService.updateProfileIdPic(request.getRemoteUser(), idPositive, idNegtive);
         return Result.ok();
     }
 

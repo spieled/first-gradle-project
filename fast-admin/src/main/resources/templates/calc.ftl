@@ -1,6 +1,7 @@
 [#ftl]
 [#assign  security=JspTaglibs["http://www.springframework.org/security/tags"] /]
 [#assign currentUsername][@security.authentication property="principal.username"/][/#assign]
+[#assign currentAvatar][@name type='avatar' id='${currentUsername}']${display!'/img/avatars/avatar3.jpg'}[/@name][/#assign]
 <!DOCTYPE html>
 <html>
     <head>

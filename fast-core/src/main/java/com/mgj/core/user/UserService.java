@@ -142,4 +142,15 @@ public class UserService {
     public void deleteOfflinePayRecord(long id) {
         offlinePayRecordDao.delete(id);
     }
+
+    @Transactional
+    public void updateAvatar(String username, String avatar) {
+        profileDao.updateAvatarByUsername(username, avatar);
+    }
+
+    @Transactional
+    public void updateProfileIdPic(String username, String idPositive, String idNegtive) {
+        profileDao.updateIdPic(username, idPositive, idNegtive);
+
+    }
 }

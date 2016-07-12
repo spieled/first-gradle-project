@@ -79,6 +79,9 @@ public class NameDirective implements TemplateDirectiveModel {
                 case "account":
                     name = userService.findAccountById(Long.parseLong(idStr)).getName();
                     break;
+                case "avatar":
+                    name = userService.findProfileByUsername(idStr).getAvatar();
+                    break;
                 default:
                     name = Constants.EMPTY;
                     break;
