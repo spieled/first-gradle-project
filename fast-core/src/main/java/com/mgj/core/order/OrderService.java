@@ -26,6 +26,11 @@ public class OrderService {
         // TODO 验证投保信息
         // TODO 扣除费用
         // TODO 保存投保信息
+        Order savedOrder = orderDao.save(order);
+        for (OrderItem item : items) {
+            item.setOrderId(savedOrder.getId());
+            itemDao.save(item);
+        }
 
     }
 

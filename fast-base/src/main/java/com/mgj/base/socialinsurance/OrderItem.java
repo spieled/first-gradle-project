@@ -39,6 +39,11 @@ public class OrderItem extends BaseEntity {
     @Column(name = "insure_city")
     private int insureCity;
     /**
+     * 缴费月份
+     */
+    @Column(name = "insure_ym")
+    private int insureYm;
+    /**
      * 缴费基数
      */
     @Column(name = "insure_base")
@@ -487,6 +492,14 @@ public class OrderItem extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getInsureYm() {
+        return insureYm;
+    }
+
+    public void setInsureYm(int insureYm) {
+        this.insureYm = insureYm;
     }
 
     public static OrderItem calc(BigDecimal insureBase, InsurePolicy policy) {

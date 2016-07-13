@@ -2628,5 +2628,12 @@ public class Util {
             return __instance__;
         }
 
+    /**
+     * 生成交流流水号(时间format+随机数)
+     * @return
+     */
+    public static String generateSerialNumber() {
+        return formatDate(new Date(), Constants.YYYYMMDDHHMMSS) + generateValidateCode();
     }
+}
 

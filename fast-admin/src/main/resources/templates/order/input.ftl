@@ -28,10 +28,11 @@
             </div>
             <div class="box-body">
                 <form id="orderForm" class="form-horizontal" role="form" action="/orders/create">
+                    <div id="chooseDiv">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">参保人</label>
                         <div class="col-sm-9">
-                            <select name="personId">
+                            <select name="personId" id="personId" class="form-control" onchange="choosePerson(this)">
                                 <option value="">请选择</option>
                             [@persons username="${currentUsername}"]
                             [#if personList?? && personList?size>0]
@@ -46,19 +47,19 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">姓名</label>
                         <div class="col-sm-9">
-                            <input type="text" name="name" readonly>
+                            <input type="text" name="name" id="name" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">身份证号</label>
                         <div class="col-sm-9">
-                            <input type="text" name="idNumber" readonly>
+                            <input type="text" name="idNumber" id="idNumber" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">户籍类型</label>
                         <div class="col-sm-9">
-                            <input type="text" id="type" name="type" readonly>
+                            <input type="text" id="type" name="type" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -83,13 +84,14 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">缴费月份</label>
                         <div class="col-sm-9">
+                            <input type="number" name="insureYm" id="insureYm" class="form-control" placeholder="缴费月份（格式yyyyMM，如201607）" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">缴费城市</label>
                         <div class="col-sm-9">
                             <select name="city" class="form-control" required>
-                                <option value="成都">成都</option>
+                                <option value="510100">成都</option>
                             </select>
                         </div>
                     </div>
@@ -101,12 +103,14 @@
                             <label><input type="radio" name="insured" value="0">不清楚</label>
                         </div>
                     </div>
-                    <div id="calcResultDiv">
+                    </div>
+                    <div id="calcResultDiv" class="hidden">
                         [@calcTable /]
                     </div>
                     <div class="form-group center">
                         <button class="btn btn-success" id="calcBtn">计算费率</button>
-                        <button type="submit" class="btn btn-success">提交</button>
+                        <button class="btn btn-success hidden" id="reChooseBtn">返回重新选择</button>
+                        <button type="submit" class="btn btn-success hidden" id="submitBtn">提交</button>
                     </div>
                 </form>
             </div>
@@ -117,33 +121,77 @@
     </section>
 
     [#include '../base/footer.html'/]
+    <script src="/js/jquery-validate/jquery.validate.min.js"></script>
     <script>
+
+        function choosePerson(e) {
+            var personId = $(e).val();
+            var option = $(e).find('option[value='+personId+']')[0];
+            var name = $(option).text();
+            var idNumber = $(option).attr('data-attr-idnumber');
+            var type = $(option).attr('data-attr-type');
+            var cityCode = $(option).attr('data-attr-city');
+            var typeStr = getTypeStr(cityCode, type);
+            $('#name').val(name);
+            $('#idNumber').val(idNumber);
+            $('#type').val(typeStr);
+        }
+
+        function getTypeStr(cityCode, type) {
+            var typeStr;
+            if (cityCode == 510100) {
+                typeStr = "本地";
+            } else {
+                typeStr = "外地";
+            }
+            if (type=='CITY') {
+                typeStr += '城镇';
+            } else {
+                typeStr += '农村';
+            }
+            return typeStr;
+        }
 
         $(function () {
             $('#lowestBaseBtn').on('click', function () {
                 $('#insureBase').val('1791');
             });
 
-            $('select[name=personId]').on('change', function () {
-                var personId = $(this).val();
-                var option = $(this).find('option[selected=selected]');
-                var name = $(option).text();
-                var idNumber = $(option).attr('data-attr-idnumber');
-                var type = $(option).attr('data-attr-type');
-                $('#name').val(name);
-                $('#idNumber').val(idNumber);
-                $('#type').val(type);
+            $('#orderForm').ajaxForm({
+                success: function (response) {
+                    if (response.success) {
+                        window.location.reload();
+                    } else {
+                        Confirm.show('操作提示', response.msg);
+                    }
+                }
             });
 
             /* 计算费用 */
-            $('#calcBtn').on('click', function() {
-                var city = $('#city').val();
+            $('#calcBtn').on('click', function(e) {
+                e.preventDefault();
+                // 验证form
+                var personId = $('#personId').val();
+                var insureBase = $('#insureBase').val();
+                var insureYm = $('#insureYm').val();
+                if (personId == undefined || personId == "") {
+                    Confirm.show('表单验证', '参保人必须选择');
+                    return false;
+                }
+                if (insureYm == undefined || insureYm == "") {
+                    Confirm.show('表单验证', '缴费月份必须填写');
+                    return false;
+                }
+                if (insureBase == undefined || insureBase == "") {
+                    Confirm.show('表单验证', '缴费基数必须填写');
+                    return false;
+                }
                 var type = $('#type').val();
-                var sick = $('#sick').val();
+                var sick = $('#sick').is(':checked') ? "true" : "false";
                 var insureBase = $('#insureBase').val();
                 $.ajax({
                     url: '/common/calc',
-                    data: {city: city, type: type, sick: sick, insureBase: insureBase},
+                    data: {type: type, sick: sick, insureBase: insureBase},
                     success: function (response) {
                         if (response.success) {
                             // TODO 更新页面UI
@@ -181,10 +229,26 @@
                         }
                     }
                 });
+                // 隐藏chooseDiv、calcBtn，calcResultDiv、reChooseBtn和submitBtn
+                $('#chooseDiv').addClass("hidden");
+                $('#calcBtn').addClass('hidden');
+                $('#reChooseBtn').removeClass('hidden');
+                $('#submitBtn').removeClass('hidden');
+                $('#calcResultDiv').removeClass('hidden');
+
+                return false;
             });
 
-
-
+            $('#reChooseBtn').on('click', function(e) {
+               e.preventDefault();
+                // 展示chooseDiv、calcBtn，隐藏calcResultDiv、reChooseBtn和submitBtn
+                $('#chooseDiv').removeClass("hidden");
+                $('#calcBtn').removeClass('hidden');
+                $('#reChooseBtn').addClass('hidden');
+                $('#submitBtn').addClass('hidden');
+                $('#calcResultDiv').addClass('hidden');
+                return false;
+            });
 
         })
     </script>

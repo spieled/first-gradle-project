@@ -15,6 +15,7 @@ public interface Constants {
     String YYYY_MM_DD = "yyyy-MM-dd";
     String YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
     String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    String YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
 
 
     // 万金油常量，随处都可以用到

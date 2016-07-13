@@ -69,7 +69,7 @@ public class Order extends BaseEntity {
      */
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.WAIT_PAY;
     /**
      * 是否已删除
      */

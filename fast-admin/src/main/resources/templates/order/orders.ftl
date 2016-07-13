@@ -33,7 +33,8 @@
                         <th>序号</th>
                         <th>流水号</th>
                         <th>标题</th>
-                        <th>明显</th>
+                        <th>明细</th>
+                        <th>总价</th>
                         <th>状态</th>
                         <th>操作</th>
                     </tr>
@@ -47,7 +48,7 @@
                             <td data-attr="title" data-attr-value="${order.title}">${order.title}</td>
                             <td data-attr="itemNumber" data-attr-value="${order.itemNumber}">${order.itemNumber}</td>
                             <td data-attr="totalPrice" data-attr-value="${order.totalPrice}">${order.totalPrice}</td>
-                            <td data-attr="status" data-attr-value="${order.status}">${order.status}</td>
+                            <td data-attr="status" data-attr-value="${order.status}">[@name type="order.status" id="${order.status}"]${display}[/@name]</td>
                             <td class="hidden-xs">
                                 <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
                             </td>
