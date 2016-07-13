@@ -6,15 +6,16 @@ import com.mgj.base.Result;
 import com.mgj.base.socialinsurance.InsurePolicy;
 import com.mgj.base.socialinsurance.OrderItem;
 import com.mgj.util.Util;
+import com.mgj.util.upyun.PicBucket;
 import net.bull.javamelody.MonitoredWithSpring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,8 @@ import java.util.Date;
 @MonitoredWithSpring
 public class CommonController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
+    @Autowired
+    private PicBucket picBucket;
 
 
     @RequestMapping("calc")
@@ -58,10 +61,13 @@ public class CommonController extends BaseController {
             String filename = prefix + originalFilename.substring(index, originalFilename.length());
             String realPath = request.getServletContext().getRealPath("/");
             String username = request.getRemoteUser();
-            File f = new File(realPath + File.separator + username + File.separator + filename);
+            String fullPath = picBucket.writeFile(username + PicBucket.DIR_ROOT + filename, bytes, true);
+            /*File f = new File(realPath + File.separator + username + File.separator + filename);
             org.apache.commons.io.FileUtils.writeByteArrayToFile(f, bytes);
             logger.info("保存图片成功" + f.getPath());
-            return Result.ok(Constants.EMPTY, "/" + username + "/" + filename);
+            return Result.ok(Constants.EMPTY, "/" + username + "/" + filename);*/
+            logger.info("保存图片成功" + fullPath);
+            return Result.ok(Constants.EMPTY, fullPath);
         } catch (Exception e) {
             logger.error("保存上次图片失败", e);
         }

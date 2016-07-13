@@ -24,3 +24,68 @@
     </div>
     [/#if]
 [/#macro]
+
+[#macro calcTable]
+<table id="calcTable" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+        <th rowspan="2">#</th>
+        <th colspan="2">基本养老保险</th>
+        <th colspan="2">基本医疗保险</th>
+        <th colspan="2">失业保险</th>
+        <th colspan="2">生育保险</th>
+        <th colspan="2">工伤保险</th>
+        <th colspan="2">大病医疗保险</th>
+        <th rowspan="2">合计</th>
+    </tr>
+    <tr>
+        <th>个人</th>
+        <th>单位</th>
+        <th>个人</th>
+        <th>单位</th>
+        <th>个人</th>
+        <th>单位</th>
+        <th>个人</th>
+        <th>单位</th>
+        <th>个人</th>
+        <th>单位</th>
+        <th>个人</th>
+        <th>单位</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>比例</td>
+        <td id="endowmentPercentCompany"></td>
+        <td id="endowmentPercentPerson"></td>
+        <td id="medicalPercentCompany"></td>
+        <td id="medicalPercentPerson"></td>
+        <td id="unemployedPercentCompany"></td>
+        <td id="unemployedPercentPerson"></td>
+        <td id="maternityPercentCompany"></td>
+        <td id="maternityPercentPerson"></td>
+        <td id="injuryPercentCompany"></td>
+        <td id="injuryPercentPerson"></td>
+        <td id="sickPercentCompany"></td>
+        <td id="sickPercentPerson"></td>
+        <td id="totalPercent"></td>
+    </tr>
+    <tr>
+        <td>金额</td>
+        <td id="endowmentCompany"></td>
+        <td id="endowmentPerson"></td>
+        <td id="medicalCompany"></td>
+        <td id="medicalPerson"></td>
+        <td id="unemployedCompany"></td>
+        <td id="unemployedPerson"></td>
+        <td id="maternityCompany"></td>
+        <td id="maternityPerson"></td>
+        <td id="injuryCompany"></td>
+        <td id="injuryPerson"></td>
+        <td id="sickCompany"></td>
+        <td id="sickPerson"></td>
+        <td id="total"></td>
+    </tr>
+    </tbody>
+</table>
+[/#macro]

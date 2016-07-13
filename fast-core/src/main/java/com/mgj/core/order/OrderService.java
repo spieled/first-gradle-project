@@ -3,6 +3,8 @@ package com.mgj.core.order;
 import com.mgj.base.socialinsurance.Order;
 import com.mgj.base.socialinsurance.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,4 +29,7 @@ public class OrderService {
 
     }
 
+    public Page<Order> findOrdersByUsername(String username, Pageable pageable) {
+        return orderDao.findByUsername(username, pageable);
+    }
 }

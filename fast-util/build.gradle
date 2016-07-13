@@ -19,6 +19,7 @@ dependencies {
     compile group: 'javax.mail', name: 'mail', version: '1.4.7'
     compile group: 'org.apache.poi', name: 'poi', version: '3.14'
     compile group: 'com.belerweb', name: 'pinyin4j', version: '2.5.1'
+    compile group: 'com.upyun', name: 'java-sdk', version: '3.8'
 
     // https://mvnrepository.com/artifact/org.mockito/mockito-all
     compile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'

@@ -58,7 +58,14 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">投保基数</label>
                         <div class="col-sm-9">
-                            <input type="number" name="insureBase" class="form-control" placeholder="投保基数" value="1791">
+                        <div class="input-group">
+                            <input type="number" id="insureBase" name="insureBase" class="form-control" placeholder="投保基数" value="1791" min="1791">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="lowestBaseBtn">
+                                最低基数
+                                </button>
+                            </span>
+                        </div>
                         </div>
                     </div>
                     <div class="form-group center">
@@ -141,6 +148,10 @@
     <script>
 
         $(function () {
+
+            $('#lowestBaseBtn').on('click', function (e) {
+                $('#insureBase').val('1791');
+            });
 
             /* ajax 提交表单 */
             $('#calcForm').ajaxForm({
