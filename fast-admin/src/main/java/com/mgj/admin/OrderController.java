@@ -2,6 +2,7 @@ package com.mgj.admin;
 
 import com.mgj.admin.base.BaseController;
 import com.mgj.admin.vo.OrderVo;
+import com.mgj.base.Constants;
 import com.mgj.base.Result;
 import com.mgj.base.socialinsurance.InsurePolicy;
 import com.mgj.base.socialinsurance.Order;
@@ -69,6 +70,24 @@ public class OrderController extends BaseController {
         order.setTotalPrice(item.getTotal());
 
         orderService.createOrder(order, Arrays.asList(item));
+
+        return Result.ok();
+    }
+
+    @RequestMapping("pay")
+    public Result payOrder(HttpServletRequest request, long orderId, long accountId) {
+        try {
+            orderService.payOrder(orderId, accountId);
+        } catch (Exception e) {
+            logger.error("订单支付失败", e);
+            return Result.fail(e.getMessage(), Constants.EMPTY);
+        }
+        return Result.ok();
+    }
+
+    @RequestMapping("delete")
+    public Result deleteOrder(HttpServletRequest request, long id) {
+        orderService.delete(id);
 
         return Result.ok();
     }

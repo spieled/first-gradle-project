@@ -187,6 +187,12 @@ public class ProfileController extends BaseController {
         return Result.ok();
     }
 
+    @RequestMapping("balance")
+    public Result getBalance(HttpServletRequest request) {
+        Account account = userService.findAccountByUsernameAndCompanyId(request.getRemoteUser(), Util.parseLong(Util.parseString(request, "companyId", "0"), 0L));
+        return Result.ok(Constants.EMPTY, account);
+    }
+
 
 
 }

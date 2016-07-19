@@ -13,3 +13,14 @@
 .box.border > .box-title .tools .btn-sm {
     margin-bottom: 7px;
 }
+
+.upload-label {
+    background-color: white;
+    z-index: 55;
+    position: relative;
+    text-align: center;
+    padding:10px;
+}
+.upload-label label {
+    display: inline-block;
+}

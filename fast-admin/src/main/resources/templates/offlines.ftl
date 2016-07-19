@@ -58,7 +58,7 @@
                             <td data-attr="amount" data-attr-value="${record.amount}">${record.amount}</td>
                             <td data-attr="serialNumber" data-attr-value="${record.serialNumber}">${record.serialNumber}</td>
                             <td data-attr="cardNumber" data-attr-value="${record.cardNumber}">${record.cardNumber}</td>
-                            <td data-attr="ticket" data-attr-value="${record.ticket}">${record.ticket}</td>
+                            <td data-attr="ticket" data-attr-value="${record.ticket}"><img src="${record.ticket}" height="50"> </td>
                             <td data-attr="status" data-attr-value="${record.status}">[@name type="offlinePayRecord.status" id="${record.status}"]${display}[/@name]</td>
                             <td class="hidden-xs">
                                 [#if record.status="NEW" || record.status="CHECK_FAILED"]
@@ -125,7 +125,16 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">汇款凭证小票</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="ticket" class="form-control" placeholder="汇款凭证小票" required>
+                                    <input type="hidden" name="ticket" class="form-control" placeholder="汇款凭证小票" required>
+                                    <input style="display: none;" type="file" value="上传照片" id="uploadInput" accept="image/*"
+                                           multiple
+                                           capture="camera"/>
+                                    <div class="upload-label">
+                                        <label for="uploadInput" class="btn btn-primary" id="uploadInputDisplayBtn">&nbsp;点击选择图片&nbsp;</label>
+                                    </div>
+                                    <div id="uploadPreviewDiv" class="text-center form-group" style="margin-top:20px;">
+                                        <img src="/img/img.png" width="300" id="uploadPreview"/>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group center">
@@ -195,8 +204,13 @@
     </div>
 
     [#include 'base/footer.html'/]
+    <script type="text/javascript" src="/js/jQuery-Cookie/jquery.cookie.min.js"></script>
+    <script src="/js/compress/LocalResizeIMG.js" type="text/javascript"></script>
+    <!-- mobileBUGFix.js 兼容修复移动设备 -->
+    <script src="/js/compress/patch/mobileBUGFix.mini.js" type="text/javascript"></script>
     <script>
 
+        var compressedFile;
         $(function () {
 
             $('#uploadTicketBtn').on('click', function () {
@@ -275,6 +289,54 @@
                     }
                 });
 
+            });
+
+            // 预览原始图，上传压缩图
+            $('#uploadInput').localResizeIMG({
+                width: 300,
+                quality: 1,
+                success: function (result) {
+
+                    $('#uploadPreview').remove();
+                    var img = new Image();
+                    img.src = result.base64;
+                    img.id = "uploadPreview";
+                    img.width = 300;
+                    compressedFile = result;
+                    $('#uploadPreviewDiv').append(img);
+
+                    $('#uploadSubmitBtn').remove();
+                    $('#uploadInputDisplayBtn').html(' 不满意？重选 ');
+                    $('<button class="btn btn-primary" id="uploadSubmitBtn"/>').text('  上   传  ')
+                            .appendTo($('.upload-label'))
+                            .click(function (e) {
+                                e.preventDefault();
+                                var token = $("#csrfToken").val();
+                                $(this).replaceWith($('<button class="btn btn-primary" id="uploadSubmitBtn"/>').text('上 传 中 ...'));
+                                $.ajax({
+                                    url: '/common/upload',
+                                    data: {
+                                        _csrf: token,
+                                        file: compressedFile.clearBase64,
+                                        name: 'fake.jpg'
+                                    },
+                                    type: 'post',
+                                    success: function (response) {
+                                        if (response.success) {
+                                            var url = response.content;
+                                            $('input[name=ticket]').val(url);
+                                            $('#uploadSubmitBtn').remove();
+                                        } else {
+                                            Confirm.show("操作提示", response.msg);
+                                        }
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                    }
+                                });
+                                return false;
+                            });
+                }
             });
 
         })

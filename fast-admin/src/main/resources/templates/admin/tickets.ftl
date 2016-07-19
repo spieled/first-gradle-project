@@ -53,7 +53,7 @@
                             <td data-attr="amount" data-attr-value="${record.amount}">${record.amount}</td>
                             <td data-attr="serialNumber" data-attr-value="${record.serialNumber}">${record.serialNumber}</td>
                             <td data-attr="cardNumber" data-attr-value="${record.cardNumber}">${record.cardNumber}</td>
-                            <td data-attr="ticket" data-attr-value="${record.ticket}">${record.ticket}</td>
+                            <td data-attr="ticket" data-attr-value="${record.ticket}"><img src="${record.ticket}" height="50"> </td>
                             <td data-attr="status" data-attr-value="${record.status}">[@name type="offlinePayRecord.status" id="${record.status}"]${display}[/@name]</td>
                             <td class="hidden-xs">
                                 [#if record.status="NEW"]

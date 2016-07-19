@@ -153,4 +153,8 @@ public class UserService {
         profileDao.updateIdPic(username, idPositive, idNegtive);
 
     }
+
+    public void createAccountRecord(AccountRecord record) {
+        accountRecordDao.save(record);
+    }
 }

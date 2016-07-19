@@ -50,7 +50,10 @@
                             <td data-attr="totalPrice" data-attr-value="${order.totalPrice}">${order.totalPrice}</td>
                             <td data-attr="status" data-attr-value="${order.status}">[@name type="order.status" id="${order.status}"]${display}[/@name]</td>
                             <td class="hidden-xs">
-                                <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
+                                [#if order.status=="WAIT_PAY"]
+                                    <button name="deleteBtn" class="btn btn-sm btn-danger">删除</button>
+                                    <button name="payBtn" class="btn btn-sm btn-danger">支付</button>
+                                [/#if]
                             </td>
                         </tr>
                         [/#list]
@@ -70,6 +73,49 @@
     [#include '../base/content_footer.html'/]
     </section>
 
+    [#-- 支付modal --]
+    <div class="modal-open modal-soft">
+        <div class="modal fade" id="payModal" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form id="payForm" class="form-horizontal" role="form" action="orders/pay">
+                            <input type="hidden" name="orderId"/>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">流水号</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="serialNumber" class="form-control" placeholder="流水号" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">标题</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="title" class="form-control" placeholder="流水号" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">金额</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="totalPrice" class="form-control" placeholder="金额" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">账户余额</label>
+                                <div class="col-sm-9">
+                                    <input type="hidden" name="accountId">
+                                    <input type="number" name="accountBalance" class="form-control" placeholder="账户余额" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group center">
+                                <button class="btn btn-light-grey" data-dismiss="modal">放弃支付</button>
+                                <button type="submit" class="btn btn-success">确认支付</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     [#include '../base/footer.html'/]
     <script>
@@ -99,6 +145,48 @@
                 });
 
             });
+
+            /* 支付按钮 */
+            $('button[name=payBtn]').on('click', function() {
+                var tr = $(this).parent().parent();
+                var id = $(tr).find('td[data-attr=id]').attr('data-attr-value');
+                var serialNumber = $(tr).find('td[data-attr=serialNumber]').attr('data-attr-value');
+                var title = $(tr).find('td[data-attr=title]').attr('data-attr-value');
+                var totalPrice = $(tr).find('td[data-attr=totalPrice]').attr('data-attr-value');
+                var companyId = 0;
+                $.ajax({
+                    url: '/profile/balance',
+                    data: {companyId: companyId},
+                    success: function(response) {
+                        if (response.success) {
+                            // show module and fill balance
+                            $('#payForm').find('input[name=accountId]').val(response.content.id);
+                            $('#payForm').find('input[name=accountBalance]').val(response.content.balance);
+                            $('#payForm').find('input[name=orderId]').val(id);
+                            $('#payForm').find('input[name=serialNumber]').val(serialNumber);
+                            $('#payForm').find('input[name=title]').val(title);
+                            $('#payForm').find('input[name=totalPrice]').val(totalPrice);
+
+                            $('#payModal').modal({backdrop: 'static', keyboard: false});
+
+                        } else {
+                            Confirm.show('操作提示', response.msg);
+                        }
+                    }
+                });
+            });
+
+            /* 确认支付 */
+            $('#payForm').ajaxForm({
+                success: function(response) {
+                    if (response.success) {
+                        window.location.reload();
+                    } else {
+                        Confirm.show('操作提示', response.msg);
+                    }
+                }
+            });
+
         })
     </script>
     </body>
