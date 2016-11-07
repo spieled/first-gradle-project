@@ -50,4 +50,11 @@ public class SignEntity {
                 ", txtcompany='" + txtcompany + '\'' +
                 '}';
     }
+
+    public String line() {
+        return this.txtmobile + Constants.COMMA +
+                this.txtuser_name + Constants.COMMA +
+                this.txtindustry + Constants.COMMA +
+                this.txtcompany;
+    }
 }

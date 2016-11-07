@@ -1,13 +1,8 @@
 package com.mgj.web;
 
-import com.alibaba.fastjson.JSON;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 import net.bull.javamelody.MonitoredWithSpring;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.MediaType;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.security.Principal;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,8 +26,22 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @RestController
 @MonitoredWithSpring
-public class HelloController {
+public class HelloController implements InitializingBean {
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HelloController.class);
+
+    /**
+     * 文本电子签到的Pool
+     */
+    private static final List<String> textSignPool = new ArrayList<>();
+    /**
+     * 名片电子签到的Pool
+     */
+    private static final List<String> picSignPool = new ArrayList<>();
+    /**
+     * 电话号码的集合
+     */
+    private static final Set<String> mobileSet = new HashSet<>();
+
 
     /*@RequestMapping("hello")
     public String hello() {
@@ -80,9 +87,31 @@ public class HelloController {
     @RequestMapping("sign")
     public Result sign(HttpServletRequest request, SignEntity signEntity) throws IOException {
 
+        // TODO 将数据保存到本地 （文本形式保存，已逗号分隔）
 
         logger.info(getIpAddr(request) + ",电子签到：" + signEntity);
-        Map<String, String> params = new HashMap<>();
+        if (!StringUtils.hasText(signEntity.getTxtmobile())) {
+            return new Result(0, "温馨提示：请输入手机号！", 0);
+        }
+        if (!StringUtils.hasText(signEntity.getTxtuser_name())) {
+            return new Result(0, "温馨提示：请输入姓名！", 0);
+        }
+        String line = signEntity.line();
+        textSignPool.add(line);
+        try {
+            // 写入文件
+            FileUtils.writeLines(new File(Constants.TEXT_SIGN_FILE), Singleton.list(line), true);
+        } catch (IOException ex) {
+            logger.error("电子签到写入文件失败" + line, ex);
+        }
+        if (StringUtils.hasText(signEntity.getTxtmobile())) {
+            if (mobileSet.contains(signEntity.getTxtmobile())) {
+                return new Result(0, "您已签到！", textSignPool.size() + picSignPool.size());
+            }
+        }
+        mobileSet.add(signEntity.getTxtmobile());
+
+        /*Map<String, String> params = new HashMap<>();
         params.put("txtmobile", signEntity.getTxtmobile());
         params.put("txtuser_name", signEntity.getTxtuser_name());
         params.put("txtindustry", signEntity.getTxtindustry());
@@ -108,15 +137,15 @@ public class HelloController {
             }
         } catch (Exception e) {
             logger.error("电子签到，向长春接口发起请求失败，构造一个随机的签到返回值,原请求是" + signEntity, e);
-        }
-        return new Result(1, "签到成功！", new Random().nextInt(100) + 1);
+        }*/
+        return new Result(1, "签到成功！", textSignPool.size() + picSignPool.size());
     }
 
     @CrossOrigin(origins = "*")
     @RequestMapping("upload")
     public Result upload(HttpServletRequest request) throws IOException {
 
-        String template = "remoteUser=%s,userPrincipal=%s,authType=%s,requestedSessionId=%s,";
+        /*String template = "remoteUser=%s,userPrincipal=%s,authType=%s,requestedSessionId=%s,";
 
         AbstractAuthenticationToken principal = (AbstractAuthenticationToken) request.getUserPrincipal();
         Collection<GrantedAuthority> authorities = principal.getAuthorities();
@@ -128,27 +157,33 @@ public class HelloController {
             String attr = enumeration.nextElement();
             Object value = session.getAttribute(attr);
             logger.info(attr + "=" + value);
-        }
+        }*/
 
         String generatedMobile = randomMobile();
         BASE64Decoder decoder = new BASE64Decoder();
         String base64 = request.getParameter("file");
         String originalFilename = request.getParameter("name");
         if (StringUtils.isEmpty(originalFilename) || StringUtils.isEmpty(base64)) {
-            return new Result(1, "签到成功！", new Random().nextInt(100) + 1);
+            return new Result(0, "签到失败！没有获取到上传名片信息！", textSignPool.size() + picSignPool.size());
         }
         byte[] bytes = decoder.decodeBuffer(base64);
         int index = originalFilename.lastIndexOf(".");
         String prefix = new SimpleDateFormat("yyyyMMddHHssmm").format(new Date());
-        String filename = prefix + "_" + generatedMobile + originalFilename.substring(index, originalFilename.length());
+        String filename = Constants.PATH_PREFIX + "upload/" + prefix + "_" + generatedMobile + originalFilename.substring(index, originalFilename.length());
 
         logger.info(getIpAddr(request) + ",名片签到，收到请求，name:" + originalFilename + ",base64:" + base64.length() + ",filename:" + filename);
 
         File f = new File(filename);
         org.apache.commons.io.FileUtils.writeByteArrayToFile(f, bytes);
         logger.info("名片签到，保存成功");
-
+        picSignPool.add(filename);
         try {
+            FileUtils.writeLines(new File(Constants.PIC_SIGN_FILE), Singleton.list(filename), true);
+        } catch (IOException e) {
+            logger.error("名片路径保存到文件失败" + filename, e);
+        }
+
+        /*try {
             Map<String, String> params = new HashMap<>();
             params.put("txtmobile", generatedMobile);
             params.put("txtuser_name", filename);
@@ -170,8 +205,8 @@ public class HelloController {
             }
         } catch (Exception ex) {
             logger.info("名片签到，保存成功后，向长春服务器发起一次电子签到请求，失败。构造一个随机的返回值。", ex);
-        }
-        return new Result(1, "签到成功！", new Random().nextInt(100) + 1);
+        }*/
+        return new Result(1, "签到成功！", textSignPool.size() + picSignPool.size());
     }
 
     public String randomMobile() {
@@ -238,4 +273,19 @@ public class HelloController {
         return ip;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        List<String> textList = FileUtils.readLines(new File(Constants.TEXT_SIGN_FILE), Charset.forName("UTF-8"));
+        List<String> picList = FileUtils.readLines(new File(Constants.PIC_SIGN_FILE), Charset.forName("UTF-8"));
+        for (String line : textList) {
+            textSignPool.add(line);
+            String mobile = line.split(Constants.COMMA)[0];
+            if (StringUtils.hasText(mobile)) {
+                mobileSet.add(mobile);
+            }
+        }
+        for (String line : picList) {
+            picSignPool.add(line);
+        }
+    }
 }
